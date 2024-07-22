@@ -1,0 +1,10 @@
+.content {
+    grid-area: content;
+    background-color: var(--content-bg);
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.item {
+    color: #2556c9;
+}
