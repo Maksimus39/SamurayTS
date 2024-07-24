@@ -1,0 +1,10 @@
+.item {
+    color: #2556c9;
+}
+
+.item img {
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
+}
+
