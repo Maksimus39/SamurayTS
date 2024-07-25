@@ -3,12 +3,14 @@
     background-color: var(--nav-bg);
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
 }
 
-.item {
-    color: #2a0505;
+.item a {
+    color: #223fbd;
+    text-decoration: none;
 }
 
-.item.active {
+.item a.activeLink {
     color: gold;
 }
