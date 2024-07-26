@@ -1,0 +1,41 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+    height: auto; /* Устанавливает высоту на весь экран */
+    overflow: hidden; /* Скрывает переполнение */
+}
+
+.dialogItems {
+    padding: 10px;
+    border-right: 1px solid #ccc; /* Добавляет разделительную линию */
+    overflow-y: auto; /* Добавляет вертикальную прокрутку */
+}
+
+.dialogItems .dialog {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Добавляет плавный переход */
+}
+
+.dialogItems .dialog:hover {
+    background-color: #f0f0f0; /* Изменение фона при наведении */
+}
+
+.dialogItems .active {
+    color: gold;
+    font-weight: bold; /* Делает активный диалог жирным */
+}
+
+.messages {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* Добавляет вертикальную прокрутку */
+}
+
+.messages .message {
+    margin: 5px 0;
+    padding: 8px;
+    background-color: #eef; /* Добавляет фон сообщениям */
+    border-radius: 10px; /* Закругляет углы сообщений */
+}
