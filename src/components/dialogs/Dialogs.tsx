@@ -1,29 +1,25 @@
 import React from 'react';
 import classes from './Dialogs.module.css';
-import {NavLink} from "react-router-dom";
+import {DialogItem} from "./dialogItem/DialogItem";
+import {Message} from "./message/Message";
+
 
 export const Dialogs = () => {
     return (
         <div className={classes.dialogs}>
             <div className={classes.dialogItems}>
-                <div className={classes.dialog + ' ' + classes.active}>
-                    <NavLink to={'/dialogs/1'}>Macsim</NavLink>
-                </div>
-                <div className={classes.dialog}>
-                    <NavLink to={'/dialogs/2'}>Larisa</NavLink>
-                </div>
-                <div className={classes.dialog}>
-                    <NavLink to={'/dialogs/3'}>Andrey</NavLink>
-                </div>
-                <div className={classes.dialog}>
-                    <NavLink to={'/dialogs/4'}>Bogdan</NavLink>
-                </div>
+
+                <DialogItem name={'Macsim'} id={'1'}/>
+                <DialogItem name={'Larisa'} id={'2'}/>
+                <DialogItem name={'Andrey'} id={'3'}/>
+                <DialogItem name={'Andrey'} id={'4'}/>
+
             </div>
             <div className={classes.messages}>
-                <div className={classes.message}>Привет, как твои дела?</div>
-                <div className={classes.message}>Привет, ты будеш ужинать!</div>
-                <div className={classes.message}>Мам, можно я пойду погуляю с друзьями?</div>
-                <div className={classes.message}>Пап, помоги мне с домашним заданием по математике.</div>
+                <Message message={'Привет, как твои дела?'}/>
+                <Message message={'Привет, ты будеш ужинать!'}/>
+                <Message message={'Мам, можно я пойду погуляю с друзьями?'}/>
+                <Message message={'Пап, помоги мне с домашним заданием по математике.'}/>
             </div>
         </div>
     );
