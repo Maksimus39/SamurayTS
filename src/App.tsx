@@ -11,6 +11,26 @@ import {Settings} from "./components/settings/Settings";
 
 
 function App() {
+
+    let dialogsData = [
+        {id: "1", name: 'Macsim'},
+        {id: "2", name: 'Larisa'},
+        {id: "3", name: 'Andrey'},
+        {id: "4", name: 'Bogdan'},
+    ]
+
+    let messagesData = [
+        {message: 'Привет, как твои дела?'},
+        {message: 'Привет, ты будешь ужинать!'},
+        {message: 'Мам, можно я пойду погуляю с друзьями?'},
+        {message: 'Пап, помоги мне с домашним заданием по математике.'},
+    ]
+
+    let postData = [
+        {id: 1, message: 'Hi how are you', likesCount: 15},
+        {id: 2, message: 'it`s my first post', likesCount: 20},
+    ]
+
     return (
         <BrowserRouter>
             <div className={'app-wrapper'}>
@@ -19,8 +39,9 @@ function App() {
                 <Navbar/>
 
                 <div className={'app-wrapper-content'}>
-                    <Route path={'/profile'} component={Profile}/>
-                    <Route path={'/dialogs'} component={Dialogs}/>
+                    <Route path={'/profile'} render={() => <Profile postData={postData}/>}/>
+                    <Route path={'/dialogs'}
+                           render={() => <Dialogs dialogsData={dialogsData} messagesData={messagesData}/>}/>
                     <Route path={'/news'} component={News}/>
                     <Route path={'/music'} component={Music}/>
                     <Route path={'/settings'} component={Settings}/>
