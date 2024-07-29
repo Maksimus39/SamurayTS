@@ -4,29 +4,28 @@ import {DialogItem} from "./dialogItem/DialogItem";
 import {Message} from "./message/Message";
 
 
-export const Dialogs = () => {
+type DialogDataType = {
+    id: string
+    name: string
+}
 
-    let dialogsData = [
-        {id: "1", name: 'Macsim'},
-        {id: "2", name: 'Larisa'},
-        {id: "3", name: 'Andrey'},
-        {id: "4", name: 'Bogdan'},
-    ]
+type MessagesDataType = {
+    message: string
+}
+type DialogsProps = {
+    dialogsData: DialogDataType[]
+    messagesData: MessagesDataType[]
+}
+export const Dialogs = (props:DialogsProps) => {
 
-    let messagesData = [
-        {message: 'Привет, как твои дела?'},
-        {message: 'Привет, ты будеш ужинать!'},
-        {message: 'Мам, можно я пойду погуляю с друзьями?'},
-        {message: 'Пап, помоги мне с домашним заданием по математике.'},
-    ]
 
-    let dialogsElement = dialogsData.map((dialog) => {
+    let dialogsElement = props.dialogsData.map((dialog) => {
         return (
             <DialogItem name={dialog.name} id={dialog.id}/>
         )
     })
 
-    let messageElement = messagesData.map((message) => {
+    let messageElement = props.messagesData.map((message) => {
         return (
             <Message message={message.message}/>
         )
