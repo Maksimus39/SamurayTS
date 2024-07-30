@@ -2,34 +2,22 @@ import React from 'react';
 import './App.css';
 import {Header} from "./components/header/Header";
 import {Navbar} from "./components/navbar/Navbar";
-import {Profile} from "./components/profile/Profile";
 import {Dialogs} from "./components/dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./components/news/News";
 import {Music} from "./components/music/Music";
 import {Settings} from "./components/settings/Settings";
+import {DialogDataType, MessagesDataType, PostDataType} from "./index";
+import {Profile} from "./components/profile/Profile";
 
+type AppProps = {
+    dialogs: DialogDataType[]
+    messages: MessagesDataType[]
+    posts: PostDataType[]
+}
 
-function App() {
+function App(props: AppProps) {
 
-    let dialogsData = [
-        {id: "1", name: 'Macsim'},
-        {id: "2", name: 'Larisa'},
-        {id: "3", name: 'Andrey'},
-        {id: "4", name: 'Bogdan'},
-    ]
-
-    let messagesData = [
-        {message: 'Привет, как твои дела?'},
-        {message: 'Привет, ты будешь ужинать!'},
-        {message: 'Мам, можно я пойду погуляю с друзьями?'},
-        {message: 'Пап, помоги мне с домашним заданием по математике.'},
-    ]
-
-    let postData = [
-        {id: 1, message: 'Hi how are you', likesCount: 15},
-        {id: 2, message: 'it`s my first post', likesCount: 20},
-    ]
 
     return (
         <BrowserRouter>
@@ -39,9 +27,9 @@ function App() {
                 <Navbar/>
 
                 <div className={'app-wrapper-content'}>
-                    <Route path={'/profile'} render={() => <Profile postData={postData}/>}/>
+                    <Route path={'/profile'} render={() => <Profile posts={props.posts}/>}/>
                     <Route path={'/dialogs'}
-                           render={() => <Dialogs dialogsData={dialogsData} messagesData={messagesData}/>}/>
+                           render={() => <Dialogs dialogs={props.dialogs} messages={props.messages}/>}/>
                     <Route path={'/news'} component={News}/>
                     <Route path={'/music'} component={Music}/>
                     <Route path={'/settings'} component={Settings}/>
