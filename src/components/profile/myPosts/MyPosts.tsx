@@ -1,19 +1,17 @@
 import React from 'react';
 import classes from "./MyPosts.module.css"
 import {Post} from "./posts/Post";
-import {PostDataType} from "../../../index";
+import {PostDataType} from "../../redux/state";
 
 
-
-
-type MyPostType={
-     posts:PostDataType[]
+type MyPostType = {
+    posts: PostDataType[]
 }
-export const MyPosts = (props:MyPostType) => {
+export const MyPosts = (props: MyPostType) => {
 
     let postDataElement = props.posts.map((p) => {
         return (
-            <Post message={p.message} likesCount={p.likesCount}/>
+            <Post key={p.id} message={p.message} likesCount={p.likesCount}/>
         )
     })
 
