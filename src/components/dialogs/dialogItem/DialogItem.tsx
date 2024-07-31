@@ -4,13 +4,21 @@ import React from "react";
 
 
 type DialogPropsItem = {
-    name: string
+    img: string
     id: string
+    name: string
 }
 export const DialogItem = (props: DialogPropsItem) => {
     return (
-        <div className={classes.dialog + ' ' + classes.active}>
-            <NavLink to={'/dialogs/1' + props.id}>{props.name}</NavLink>
+        <div>
+            <div className={classes.dialog + ' ' + classes.active}>
+                <NavLink to={'/dialogs/1' + props.id}>
+                    {props.name}</NavLink>
+            </div>
+
+            <div className={classes.avatar}>
+                <img src={props.img} alt=""/>
+            </div>
         </div>
     )
 }
