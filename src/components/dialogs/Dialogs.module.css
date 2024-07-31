@@ -1,6 +1,6 @@
 .dialogs {
     display: grid;
-    grid-template-columns: 2fr 10fr;
+    grid-template-columns: 3fr 10fr;
     height: auto; /* Устанавливает высоту на весь экран */
     overflow: hidden; /* Скрывает переполнение */
 }
@@ -38,4 +38,10 @@
     padding: 8px;
     background-color: #eef; /* Добавляет фон сообщениям */
     border-radius: 10px; /* Закругляет углы сообщений */
+}
+
+.avatar img {
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
 }
