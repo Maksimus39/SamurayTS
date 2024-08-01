@@ -1,6 +1,6 @@
 .dialogs {
     display: grid;
-    grid-template-columns: 3fr 10fr;
+    grid-template-columns: 2fr 10fr;
     height: auto; /* Устанавливает высоту на весь экран */
     overflow: hidden; /* Скрывает переполнение */
 }
@@ -41,7 +41,7 @@
 }
 
 .avatar img {
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
     border-radius: 15px;
 }
