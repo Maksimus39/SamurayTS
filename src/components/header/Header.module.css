@@ -1,17 +1,23 @@
 .header {
     grid-area: header;
-    background-color: var(--header-bg, #ffffff);
-    padding: 15px 20px;
+    background-color: var(--header-bg, #f05a5a); /* Улучшенный цвет фона */
+    padding: 20px 25px; /* Увеличенные отступы */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: 3px solid #00CED1; /* Добавление цветной рамки */
-    border-radius: 8px; /* Закругление углов рамки */
+    box-shadow: 0 6px 12px rgba(138, 5, 5, 0.2); /* Улучшенная тень */
+    border: 3px solid #e18711;
+    border-radius: 10px; /* Увеличенный радиус закругления */
 }
 
 .header img {
     max-width: 100%;
-    width: 50px;
-    margin-right: 15px;
+    width: 80px; /* Увеличенный размер изображения */
+    margin-right: 20px; /* Увеличенный отступ */
+}
+
+.header img:hover {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7); /* Улучшенная тень при наведении */
+    transform: scale(1.1); /* Увеличение изображения при наведении */
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
