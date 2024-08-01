@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import classes from "./MyPosts.module.css"
 import {Post} from "./posts/Post";
 import {PostDataType} from "../../redux/state";
@@ -6,6 +6,7 @@ import {PostDataType} from "../../redux/state";
 
 type MyPostType = {
     posts: PostDataType[]
+    //addPost: (message: string) => void;
 }
 export const MyPosts = (props: MyPostType) => {
 
@@ -15,15 +16,29 @@ export const MyPosts = (props: MyPostType) => {
         )
     })
 
+
+    const newPostElement = useRef<HTMLTextAreaElement>(null);
+
+    // const addPost = () => {
+    //     if (newPostElement.current) {
+    //         const text = newPostElement.current.value;
+    //         if (text.trim() !== "") {
+    //             props.addPost(text);
+    //             newPostElement.current.value = ""; // Очистка текстового поля после добавления поста
+    //         }
+    //     }
+    // };
+
+
     return (
         <div className={classes.postsBlock}>
             <h3>My Posts</h3>
             <div>
                 <div>
-                    <textarea></textarea>
+                    <textarea ref={newPostElement}></textarea>
                 </div>
                 <div>
-                    <button>Add Post</button>
+                    {/*<button onClick={addPost}>Add Post</button>*/}
                 </div>
             </div>
 
