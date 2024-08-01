@@ -1,26 +1,28 @@
 :root {
-    --bg-color: #f0f0f0;
-    --header-bg: #fff8e1;
-    --nav-bg: #e0e0e0;
+    --bg-color: #4a76a8; /* Улучшенный цвет фона */
+    --header-bg: #6d6b8b; /* Улучшенный цвет заголовка */
+    --nav-bg: #d0d0d0; /* Улучшенный цвет навигации */
     --content-bg: #e0f7fa;
-    --text-color: #333;
+    --text-color: #222; /* Улучшенный цвет текста */
 }
 
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
-    font-family: Arial, sans-serif;
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* Улучшенный шрифт */
     padding: 0;
+    margin: 0;
 }
 
 .app-wrapper {
     display: grid;
-    width: 1200px;
+    width: 90%; /* Уменьшенная ширина для лучшей адаптивности */
+    max-width: 1200px;
     margin: 0 auto;
 
-    grid-template-rows: 70px 1fr;
-    grid-template-columns: 2fr 10fr;
-    gap: 9px;
+    grid-template-rows: 80px 1fr; /* Увеличенная высота заголовка */
+    grid-template-columns: 1fr 3fr; /* Улучшенная раскладка колонок */
+    gap: 12px; /* Увеличенный зазор */
     grid-template-areas:
                 'header header'
                 'navbar content';
@@ -39,6 +41,6 @@ body {
 .app-wrapper-content {
     grid-area: content;
     background-color: var(--content-bg);
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 25px; /* Увеличенный отступ */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Улучшенная тень */
 }
