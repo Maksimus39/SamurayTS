@@ -34,6 +34,8 @@ export type FriendsDataType = {
     name: string
 }
 
+
+// state data
 export const state: RootStateType = {
     profilePage: {
         dialogs: [
