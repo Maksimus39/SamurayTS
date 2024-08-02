@@ -8,6 +8,7 @@
     box-shadow: 0 6px 12px rgba(138, 5, 5, 0.2); /* Улучшенная тень */
     border: 3px solid #e18711;
     border-radius: 10px; /* Увеличенный радиус закругления */
+    margin-top: 7px;
 }
 
 .header img {
