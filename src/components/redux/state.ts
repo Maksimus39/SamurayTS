@@ -1,15 +1,15 @@
 // типы данных
 export type RootStateType = {
     profilePage: ProfilePageType
-    messagesPage: MessagesPageType
+    dialogsPage: MessagesPageType
     sidebar: SidebarPageType
 }
 export type ProfilePageType = {
-    dialogs: DialogDataType[]
-    messages: MessagesDataType[]
+    posts: PostDataType[]
 }
 export type MessagesPageType = {
-    posts: PostDataType[]
+    dialogs: DialogDataType[]
+    messages: MessagesDataType[]
 }
 export type SidebarPageType = {
     friends: FriendsDataType[]
@@ -38,6 +38,12 @@ export type FriendsDataType = {
 // state data
 export const state: RootStateType = {
     profilePage: {
+        posts: [
+            {id: 1, message: 'Hi how are you', likesCount: 15},
+            {id: 2, message: 'it`s my first post', likesCount: 20},
+        ]
+    },
+    dialogsPage: {
         dialogs: [
             {
                 img: "https://sun9-13.userapi.com/s/v1/ig2/MeVyG5WMz1Ky9FWdgpj-hQc5q1syyjv1hn4BQkEXdHi5SnGN38pALwII-QduTQ7A2APe6sEuvdBR6bdFirNnhslM.jpg?quality=95&as=32x57,48x85,72x128,108x192,160x285,240x427,360x640,480x854,540x960,640x1138,720x1281,750x1334&from=bu&u=lzxi6OgRcIRZqJXTydaWG4w2OgmjUJkYUJpvehh8MSg&cs=320x569",
@@ -68,12 +74,6 @@ export const state: RootStateType = {
             {id: "4", message: 'Пап, помоги мне с домашним заданием по математике.'},
         ],
     },
-    messagesPage: {
-        posts: [
-            {id: 1, message: 'Hi how are you', likesCount: 15},
-            {id: 2, message: 'it`s my first post', likesCount: 20},
-        ]
-    },
     sidebar: {
         friends: [
             {
@@ -93,4 +93,15 @@ export const state: RootStateType = {
             },
         ]
     }
+}
+
+export let addPost = (postMessage: string) => {
+    debugger
+    let newPost: PostDataType = {
+        id: 5,
+        message: postMessage,
+        likesCount: 0
+    };
+
+    state.profilePage.posts.push(newPost)
 }
