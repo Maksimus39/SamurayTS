@@ -1,4 +1,6 @@
 // типы данных
+import {rerenderEntireThree} from "../../render";
+
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: MessagesPageType
@@ -96,7 +98,6 @@ export const state: RootStateType = {
 }
 
 export let addPost = (postMessage: string) => {
-    debugger
     let newPost: PostDataType = {
         id: 5,
         message: postMessage,
@@ -104,4 +105,5 @@ export let addPost = (postMessage: string) => {
     };
 
     state.profilePage.posts.push(newPost)
+    rerenderEntireThree(state)
 }
