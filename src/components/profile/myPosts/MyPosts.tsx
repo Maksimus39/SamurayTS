@@ -6,7 +6,9 @@ import {PostDataType} from "../../redux/state";
 
 type MyPostType = {
     posts: PostDataType[]
-    addPost: (postMessage: string) => void;
+    newPostText: string
+    addPost: () => void;
+    updateNewPostText: (newText: string) => void
 }
 export const MyPosts = (props: MyPostType) => {
 
@@ -20,15 +22,17 @@ export const MyPosts = (props: MyPostType) => {
     const newPostElement = useRef<HTMLTextAreaElement>(null);
 
     const addPost = () => {
-        debugger
+        props.addPost()
+    };
+
+    const onPostChange = () => {
         if (newPostElement.current) {
             const text = newPostElement.current.value;
             if (text.trim() !== "") {
-                props.addPost(text);
-                newPostElement.current.value = ""; // Очистка текстового поля после добавления поста
+                props.updateNewPostText(text);
             }
         }
-    };
+    }
 
 
     return (
@@ -36,7 +40,7 @@ export const MyPosts = (props: MyPostType) => {
             <h3>My Posts</h3>
             <div>
                 <div>
-                    <textarea ref={newPostElement}></textarea>
+                    <textarea ref={newPostElement} onChange={onPostChange} value={props.newPostText}/>
                 </div>
                 <div>
                     <button onClick={addPost}>Add Post</button>
