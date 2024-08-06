@@ -1,15 +1,16 @@
-// типы данных
+// type data
 import {rerenderEntireThree} from "../../render";
 
 export type RootStateType = {
     profilePage: ProfilePageType
-    dialogsPage: MessagesPageType
+    dialogsPage: DialogsPageType
     sidebar: SidebarPageType
 }
 export type ProfilePageType = {
     posts: PostDataType[]
+    newPostText: string
 }
-export type MessagesPageType = {
+export type DialogsPageType = {
     dialogs: DialogDataType[]
     messages: MessagesDataType[]
 }
@@ -43,7 +44,8 @@ export const state: RootStateType = {
         posts: [
             {id: 1, message: 'Hi how are you', likesCount: 15},
             {id: 2, message: 'it`s my first post', likesCount: 20},
-        ]
+        ],
+        newPostText: '',
     },
     dialogsPage: {
         dialogs: [
@@ -97,13 +99,22 @@ export const state: RootStateType = {
     }
 }
 
-export let addPost = (postMessage: string) => {
+
+
+export const addPost = () => {
     let newPost: PostDataType = {
         id: 5,
-        message: postMessage,
+        message: state.profilePage.newPostText,
         likesCount: 0
     };
 
     state.profilePage.posts.push(newPost)
+    state.profilePage.newPostText=''
+    rerenderEntireThree(state)
+
+}
+
+export const updateNewPostText = (newText: string) => {
+    state.profilePage.newPostText = newText
     rerenderEntireThree(state)
 }
