@@ -1,5 +1,5 @@
 import './index.css';
-import { RootStateType, store,} from "./components/redux/state";
+import {RootStateType, store,} from "./components/redux/state";
 import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
 import App from "./App";
@@ -10,8 +10,7 @@ export let rerenderEntireThree = (state: RootStateType) => {
     ReactDOM.render(
         <BrowserRouter>
             <App state={state}
-                 addPost={store.addPost.bind(store)}
-                 updateNewPostText={store.updateNewPostText.bind(store)}
+                 dispatch={store.dispatch.bind(store)}
             />
         </BrowserRouter>
         , document.getElementById('root')
