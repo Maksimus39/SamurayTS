@@ -5,7 +5,7 @@ import React from "react";
 
 type DialogPropsItem = {
     img: string
-    id: string
+    id: number
     name: string
 }
 export const DialogItem = (props: DialogPropsItem) => {
