@@ -8,12 +8,11 @@ import {News} from "./components/news/News";
 import {Music} from "./components/music/Music";
 import {Settings} from "./components/settings/Settings";
 import {Profile} from "./components/profile/Profile";
-import {RootStateType} from "./components/redux/state";
+import {DispatchType, RootStateType} from "./components/redux/state";
 
 type AppProps = {
     state: RootStateType
-    addPost: () => void
-    updateNewPostText: (newText: string) => void
+    dispatch: (action: DispatchType) => void
 }
 
 function App(props: AppProps) {
@@ -28,8 +27,7 @@ function App(props: AppProps) {
             <div className={'app-wrapper-content'}>
                 <Route path={'/profile'}
                        render={() => <Profile profilePage={props.state.profilePage}
-                                              addPost={props.addPost}
-                                              updateNewPostText={props.updateNewPostText}
+                                              dispatch={props.dispatch}
                        />}
                 />
                 <Route path={'/dialogs'}
