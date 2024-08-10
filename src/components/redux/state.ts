@@ -55,6 +55,21 @@ type UpdateNewPostTextActionType = {
 
 export type DispatchType = AddPostActionType | UpdateNewPostTextActionType
 
+// Action creator
+export const addPostActionCreator = (newPostText: string):AddPostActionType => {
+    return {
+        type: 'ADD-POST',
+        newPostText: newPostText
+    } as const
+}
+export const updateNewPostTextActionCreator = (newText: string):UpdateNewPostTextActionType => {
+    return {
+        type: 'UPDATE-NEW-POST-TEXT',
+        newText: newText
+    } as const
+}
+
+
 // state data
 export let store: StoreType = {
     _state: {
