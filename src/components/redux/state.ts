@@ -18,6 +18,7 @@ export type ProfilePageType = {
 export type DialogsPageType = {
     dialogs: DialogDataType[]
     messages: MessagesDataType[]
+    newMessageText: string
 }
 export type SidebarPageType = {
     friends: FriendsDataType[]
@@ -45,27 +46,51 @@ export type FriendsDataType = {
 
 // Dispatch action type
 type AddPostActionType = {
-    type: 'ADD-POST',
+    type: 'ADD-POST'
     newPostText: string
 }
 type UpdateNewPostTextActionType = {
-    type: 'UPDATE-NEW-POST-TEXT',
+    type: 'UPDATE-NEW-POST-TEXT'
     newText: string
 }
+type AddNewMessageTextActionType = {
+    type: 'ADD-NEW-MESSAGE-TEXT'
+    newMessageText: string
+}
+type UpdateNewMessageTextActionType = {
+    type: 'UPDATE-NEW-MESSAGE-TEXT'
+    newMessage: string
+}
 
-export type DispatchType = AddPostActionType | UpdateNewPostTextActionType
+export type DispatchType =
+    AddPostActionType
+    | UpdateNewPostTextActionType
+    | AddNewMessageTextActionType
+    | UpdateNewMessageTextActionType
 
 // Action creator
-export const addPostActionCreator = (newPostText: string):AddPostActionType => {
+export const addPostActionCreator = (newPostText: string): AddPostActionType => {
     return {
         type: 'ADD-POST',
         newPostText: newPostText
     } as const
 }
-export const updateNewPostTextActionCreator = (newText: string):UpdateNewPostTextActionType => {
+export const updateNewPostTextActionCreator = (newText: string): UpdateNewPostTextActionType => {
     return {
         type: 'UPDATE-NEW-POST-TEXT',
         newText: newText
+    } as const
+}
+export const addNewMessageTextActionCreator = (newMessageText: string): AddNewMessageTextActionType => {
+    return {
+        type: 'ADD-NEW-MESSAGE-TEXT',
+        newMessageText: newMessageText
+    } as const
+}
+export const updateNewMessageTextActionCreator = (newMessage: string): UpdateNewMessageTextActionType => {
+    return {
+        type: 'UPDATE-NEW-MESSAGE-TEXT',
+        newMessage: newMessage
     } as const
 }
 
@@ -110,6 +135,7 @@ export let store: StoreType = {
                 {id: new Date().getTime(), message: 'Мам, можно я пойду погуляю с друзьями?'},
                 {id: new Date().getTime(), message: 'Пап, помоги мне с домашним заданием по математике.'},
             ],
+            newMessageText: ''
         },
         sidebar: {
             friends: [
@@ -155,6 +181,17 @@ export let store: StoreType = {
             this._callSubscriber()
         } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
             this._state.profilePage.newPostText = action.newText
+            this._callSubscriber()
+        } else if (action.type === 'ADD-NEW-MESSAGE-TEXT') {
+            let newMessage: MessagesDataType = {
+                id: new Date().getTime(),
+                message: action.newMessageText,
+            }
+            this._state.dialogsPage.messages.push(newMessage)
+            this._state.dialogsPage.newMessageText = ''
+            this._callSubscriber()
+        } else if (action.type === 'UPDATE-NEW-MESSAGE-TEXT') {
+            this._state.dialogsPage.newMessageText = action.newMessage
             this._callSubscriber()
         }
     }
