@@ -22,7 +22,7 @@ function App(props: AppProps) {
         <div className={'app-wrapper'}>
 
             <Header/>
-            <Navbar friends={props.state.sidebar.friends}/>
+            <Navbar friends={props.state.sidebarPage.friends}/>
 
             <div className={'app-wrapper-content'}>
                 <Route path={'/profile'}
