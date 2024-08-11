@@ -1,4 +1,12 @@
 // type data
+import {AddPostActionType, profilePageReducer, UpdateNewPostTextActionType} from "./reducer/profilePageReducer";
+import {
+    AddNewMessageTextActionType,
+    dialogsPageReducer,
+    UpdateNewMessageTextActionType
+} from "./reducer/dialogsPageReducer";
+import {sidebarPageReducer} from "./reducer/SidePageReducer";
+
 export type StoreType = {
     _state: RootStateType,
     getState: () => RootStateType,
@@ -9,7 +17,7 @@ export type StoreType = {
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
-    sidebar: SidebarPageType
+    sidebarPage: SidebarPageType
 }
 export type ProfilePageType = {
     posts: PostDataType[]
@@ -44,56 +52,11 @@ export type FriendsDataType = {
 }
 
 
-// Dispatch action type
-type AddPostActionType = {
-    type: 'ADD-POST'
-    newPostText: string
-}
-type UpdateNewPostTextActionType = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newText: string
-}
-type AddNewMessageTextActionType = {
-    type: 'ADD-NEW-MESSAGE-TEXT'
-    newMessageText: string
-}
-type UpdateNewMessageTextActionType = {
-    type: 'UPDATE-NEW-MESSAGE-TEXT'
-    newMessage: string
-}
-
 export type DispatchType =
     AddPostActionType
     | UpdateNewPostTextActionType
     | AddNewMessageTextActionType
     | UpdateNewMessageTextActionType
-
-// Action creator
-export const addPostActionCreator = (newPostText: string): AddPostActionType => {
-    return {
-        type: 'ADD-POST',
-        newPostText: newPostText
-    } as const
-}
-export const updateNewPostTextActionCreator = (newText: string): UpdateNewPostTextActionType => {
-    return {
-        type: 'UPDATE-NEW-POST-TEXT',
-        newText: newText
-    } as const
-}
-export const addNewMessageTextActionCreator = (newMessageText: string): AddNewMessageTextActionType => {
-    return {
-        type: 'ADD-NEW-MESSAGE-TEXT',
-        newMessageText: newMessageText
-    } as const
-}
-export const updateNewMessageTextActionCreator = (newMessage: string): UpdateNewMessageTextActionType => {
-    return {
-        type: 'UPDATE-NEW-MESSAGE-TEXT',
-        newMessage: newMessage
-    } as const
-}
-
 
 // state data
 export let store: StoreType = {
@@ -137,7 +100,7 @@ export let store: StoreType = {
             ],
             newMessageText: ''
         },
-        sidebar: {
+        sidebarPage: {
             friends: [
                 {
                     id: 1,
@@ -169,30 +132,11 @@ export let store: StoreType = {
     },
 
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
-            let newPost: PostDataType = {
-                id: new Date().getTime(),
-                message: action.newPostText,
-                likesCount: 0
-            };
 
-            this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.newPostText = ''
-            this._callSubscriber()
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
-            this._state.profilePage.newPostText = action.newText
-            this._callSubscriber()
-        } else if (action.type === 'ADD-NEW-MESSAGE-TEXT') {
-            let newMessage: MessagesDataType = {
-                id: new Date().getTime(),
-                message: action.newMessageText,
-            }
-            this._state.dialogsPage.messages.push(newMessage)
-            this._state.dialogsPage.newMessageText = ''
-            this._callSubscriber()
-        } else if (action.type === 'UPDATE-NEW-MESSAGE-TEXT') {
-            this._state.dialogsPage.newMessageText = action.newMessage
-            this._callSubscriber()
-        }
+        this._state.profilePage = profilePageReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsPageReducer(this._state.dialogsPage, action);
+        this._state.sidebarPage = sidebarPageReducer(this._state.sidebarPage, action);
+        this._callSubscriber();
     }
+
 }
