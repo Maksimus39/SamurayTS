@@ -8,7 +8,7 @@ import {News} from "./components/news/News";
 import {Music} from "./components/music/Music";
 import {Settings} from "./components/settings/Settings";
 import {Profile} from "./components/profile/Profile";
-import {DispatchType, RootStateType} from "./components/redux/state";
+import {DispatchType, RootStateType} from "./components/redux/store";
 
 type AppProps = {
     state: RootStateType
