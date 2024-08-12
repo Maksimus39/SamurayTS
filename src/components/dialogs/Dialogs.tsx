@@ -7,7 +7,7 @@ import {
     DialogsPageType,
     DispatchType,
 
-} from "../redux/state";
+} from "../redux/store";
 import {addNewMessageTextActionCreator, updateNewMessageTextActionCreator} from "../redux/reducer/dialogsPageReducer";
 
 
