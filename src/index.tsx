@@ -1,12 +1,12 @@
 import './index.css';
-import {RootStateType, store,} from "./components/redux/state";
 import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
 import App from "./App";
 import React from "react";
+import {AppRootStateType, store} from "./components/redux/redux-store";
 
 
-export let rerenderEntireThree = (state: RootStateType) => {
+export let rerenderEntireThree = (state: AppRootStateType) => {
     ReactDOM.render(
         <BrowserRouter>
             <App state={state}
@@ -20,5 +20,5 @@ export let rerenderEntireThree = (state: RootStateType) => {
 rerenderEntireThree(store.getState());
 
 
-store.subscribe(() => rerenderEntireThree(store._state))
+store.subscribe(() => rerenderEntireThree(store.getState()))
 
