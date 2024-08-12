@@ -1,4 +1,4 @@
-import {FriendsDataType} from "../../redux/state";
+import {FriendsDataType} from "../../redux/store";
 import classes from "../Navbar.module.css";
 import React from "react";
 
