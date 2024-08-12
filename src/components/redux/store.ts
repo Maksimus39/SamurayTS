@@ -1,4 +1,3 @@
-// type data
 import {AddPostActionType, profilePageReducer, UpdateNewPostTextActionType} from "./reducer/profilePageReducer";
 import {
     AddNewMessageTextActionType,
@@ -7,6 +6,8 @@ import {
 } from "./reducer/dialogsPageReducer";
 import {sidebarPageReducer} from "./reducer/SidePageReducer";
 
+
+// type data
 export type StoreType = {
     _state: RootStateType,
     getState: () => RootStateType,
@@ -118,7 +119,7 @@ export let store: StoreType = {
                     name: "Evgeniy"
                 },
             ]
-        }
+        },
     },
     _callSubscriber() {
         console.log('state')
@@ -138,5 +139,4 @@ export let store: StoreType = {
         this._state.sidebarPage = sidebarPageReducer(this._state.sidebarPage, action);
         this._callSubscriber();
     }
-
 }
