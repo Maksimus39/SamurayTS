@@ -1,4 +1,4 @@
-import {DispatchType, PostDataType, ProfilePageType} from "../state";
+import {DispatchType, PostDataType, ProfilePageType} from "../store";
 
 export type AddPostActionType = {
     type: 'ADD-POST'
@@ -22,7 +22,15 @@ export const updateNewPostTextActionCreator = (newText: string): UpdateNewPostTe
     } as const
 }
 
-export const profilePageReducer = (state: ProfilePageType, action: DispatchType) => {
+let initialState = {
+    posts: [
+        {id: new Date().getTime(), message: 'Hi how are you', likesCount: 15},
+        {id: new Date().getTime(), message: 'it`s my first post', likesCount: 20},
+    ],
+    newPostText: '',
+}
+
+export const profilePageReducer = (state: ProfilePageType = initialState, action: DispatchType) => {
     switch (action.type) {
         case 'ADD-POST':
             let newPost: PostDataType = {
@@ -37,7 +45,8 @@ export const profilePageReducer = (state: ProfilePageType, action: DispatchType)
         case 'UPDATE-NEW-POST-TEXT':
             state.newPostText = action.newText
             return state;
-        default:return state
+        default:
+            return state
     }
 };
 
