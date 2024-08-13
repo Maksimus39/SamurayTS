@@ -11,6 +11,7 @@ export let rerenderEntireThree = (state: AppRootStateType) => {
         <BrowserRouter>
             <App state={state}
                  dispatch={store.dispatch.bind(store)}
+                 store={store}
             />
         </BrowserRouter>
         , document.getElementById('root')
@@ -18,7 +19,6 @@ export let rerenderEntireThree = (state: AppRootStateType) => {
 }
 
 rerenderEntireThree(store.getState());
-
 
 store.subscribe(() => rerenderEntireThree(store.getState()))
 
