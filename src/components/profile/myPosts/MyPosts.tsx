@@ -1,14 +1,14 @@
 import React, {useRef} from 'react';
 import classes from "./MyPosts.module.css"
 import {Post} from "./posts/Post";
-import { DispatchType, PostDataType} from "../../redux/store";
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../redux/reducer/profilePageReducer";
+import {PostDataType} from "../../redux/store";
 
 
 type MyPostType = {
     posts: PostDataType[]
     newPostText: string
-    dispatch: (action: DispatchType) => void
+    addPost: (newPostText: string) => void
+    updateNewPostText: (text: string) => void
 }
 
 export const MyPosts = (props: MyPostType) => {
@@ -19,35 +19,35 @@ export const MyPosts = (props: MyPostType) => {
         )
     })
 
-
     const newPostElement = useRef<HTMLTextAreaElement>(null);
 
-    const addPost = () => {
+    const onAddPost = () => {
         if (newPostElement.current) {
             const text = newPostElement.current.value;
-            props.dispatch(addPostActionCreator(text))
+            props.addPost(text)
         }
+
     };
 
     const onPostChange = () => {
         if (newPostElement.current) {
             const text = newPostElement.current.value;
             if (text.trim() !== "") {
-                props.dispatch(updateNewPostTextActionCreator(text.trim()))
+                props.updateNewPostText(text)
             }
         }
     }
-
 
     return (
         <div className={classes.postsBlock}>
             <h3>My Posts</h3>
             <div>
                 <div>
-                    <textarea ref={newPostElement} onChange={onPostChange} value={props.newPostText} placeholder={'Enter Your Post'}/>
+                    <textarea ref={newPostElement} onChange={onPostChange} value={props.newPostText}
+                              placeholder={'Enter Your Post'}/>
                 </div>
                 <div>
-                    <button onClick={addPost}>Add Post</button>
+                    <button onClick={onAddPost}>Add Post</button>
                 </div>
             </div>
 
