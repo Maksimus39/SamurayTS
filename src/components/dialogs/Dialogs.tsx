@@ -2,29 +2,28 @@ import React, {useRef} from 'react';
 import classes from './Dialogs.module.css';
 import {DialogItem} from "./dialogItem/DialogItem";
 import {Message} from "./message/Message";
-import {
-
-    DialogsPageType,
-    DispatchType,
-
-} from "../redux/store";
-import {addNewMessageTextActionCreator, updateNewMessageTextActionCreator} from "../redux/reducer/dialogsPageReducer";
+import {Store} from "redux";
+import {AppRootStateType} from "../redux/redux-store";
+import {DialogsPageType} from "../redux/store";
 
 
 type DialogsProps = {
     dialogsPage: DialogsPageType
-    dispatch: (action: DispatchType) => void
-    newMessageText: string
+    sendMessage: () => void
+    updateNewMessageBody: (message: string) => void
+    store: Store<AppRootStateType>
 }
 export const Dialogs = (props: DialogsProps) => {
 
-    let dialogsElement = props.dialogsPage.dialogs.map((d) => {
+    let state = props.dialogsPage;
+
+    let dialogsElement = state.dialogs.map((d) => {
         return (
             <DialogItem key={d.id} name={d.name} id={d.id} img={d.img}/>
         )
     })
 
-    let messageElement = props.dialogsPage.messages.map((m) => {
+    let messageElement = state.messages.map((m) => {
         return (
             <Message key={m.id} message={m.message}/>
         )
@@ -33,16 +32,13 @@ export const Dialogs = (props: DialogsProps) => {
     const newMessageElement = useRef<HTMLTextAreaElement>(null);
 
     const addMessageHandler = () => {
-        if (newMessageElement.current) {
-            const message = newMessageElement.current.value;
-            props.dispatch(addNewMessageTextActionCreator(message))
-        }
+        props.sendMessage()
     }
 
-    const onMessageChange = () => {
+    const onNewMessageChange = () => {
         if (newMessageElement.current) {
             const message = newMessageElement.current.value;
-            props.dispatch(updateNewMessageTextActionCreator(message))
+            props.updateNewMessageBody(message)
         }
     }
 
@@ -61,7 +57,8 @@ export const Dialogs = (props: DialogsProps) => {
 
                 <div>
                     <div>
-                        <textarea ref={newMessageElement} onChange={onMessageChange} value={props.newMessageText}
+                        <textarea ref={newMessageElement} onChange={onNewMessageChange}
+                                  value={props.store.getState().dialogsPage.newMessageText}
                                   placeholder={'Enter a message...'}/>
                     </div>
                     <div>
