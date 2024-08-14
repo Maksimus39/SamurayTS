@@ -1,14 +1,10 @@
 import React from "react";
 import classes from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
-import {FriendsDataType} from "../redux/store";
 import {NavbarFriends} from "./navbarFriends/NavbarFriends";
 
 
-type NavbarProps = {
-    friends: FriendsDataType[]
-}
-export const Navbar = (props: NavbarProps) => {
+export const Navbar = () => {
     return <nav className={classes.nav}>
         <div className={classes.item}>
             <NavLink to={'/profile'} activeClassName={classes.activeLink}>Profile</NavLink>
@@ -28,7 +24,7 @@ export const Navbar = (props: NavbarProps) => {
 
 
         <div className={classes.friends}>
-            <NavbarFriends friends={props.friends}/>
+            <NavbarFriends/>
         </div>
     </nav>
 };
