@@ -2,17 +2,14 @@ import React, {useRef} from 'react';
 import classes from './Dialogs.module.css';
 import {DialogItem} from "./dialogItem/DialogItem";
 import {Message} from "./message/Message";
-import {Store} from "redux";
-import {AppRootStateType} from "../redux/redux-store";
 import {DialogsPageType} from "../redux/store";
-
 
 type DialogsProps = {
     dialogsPage: DialogsPageType
-    sendMessage: () => void
+    sendMessage: (message: string) => void
     updateNewMessageBody: (message: string) => void
-    store: Store<AppRootStateType>
 }
+
 export const Dialogs = (props: DialogsProps) => {
 
     let state = props.dialogsPage;
@@ -32,7 +29,10 @@ export const Dialogs = (props: DialogsProps) => {
     const newMessageElement = useRef<HTMLTextAreaElement>(null);
 
     const addMessageHandler = () => {
-        props.sendMessage()
+        if (newMessageElement.current) {
+            const message = newMessageElement.current.value;
+            props.sendMessage(message);
+        }
     }
 
     const onNewMessageChange = () => {
@@ -46,19 +46,15 @@ export const Dialogs = (props: DialogsProps) => {
         <div>
             <div className={classes.dialogs}>
                 <div className={classes.dialogItems}>
-
                     {dialogsElement}
                 </div>
-
                 <div className={classes.messages}>
-
                     {messageElement}
                 </div>
-
                 <div>
                     <div>
                         <textarea ref={newMessageElement} onChange={onNewMessageChange}
-                                  value={props.store.getState().dialogsPage.newMessageText}
+                                  value={props.dialogsPage.newMessageText}
                                   placeholder={'Enter a message...'}/>
                     </div>
                     <div>
@@ -67,7 +63,5 @@ export const Dialogs = (props: DialogsProps) => {
                 </div>
             </div>
         </div>
-
     );
 };
-
