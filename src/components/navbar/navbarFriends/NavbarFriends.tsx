@@ -1,27 +1,36 @@
 import classes from "../Navbar.module.css";
 import React from "react";
-import {StoreContext} from "../../StoreContext";
+import {connect} from "react-redux";
+import {AppRootStateType} from "../../redux/redux-store";
+import {FriendsDataType} from "../../redux/store";
 
-export const NavbarFriends = () => {
+
+type NavbarFriendsProps = {
+    friends: FriendsDataType[]
+}
+const NavbarFriendsComponent: React.FC<NavbarFriendsProps> = ({friends}) => {
     return (
-        <StoreContext.Consumer>
-            {store => {
-                const friends = store.getState().sidebarPage.friends; // Предполагается, что friends находятся в store.getState()
+        <div>
+            {friends.map((fr) => {
                 return (
-                    <div>
-                        {friends.map((fr) => {
-                            return (
-                                <div key={fr.id} className={classes.description}>
-                                    <div className={classes.text}>
-                                        {fr.name}
-                                    </div>
-                                    <img src={fr.img} alt={fr.name}/>
-                                </div>
-                            );
-                        })}
+                    <div key={fr.id} className={classes.description}>
+                        <div className={classes.text}>
+                            {fr.name}
+                        </div>
+                        <img src={fr.img} alt={fr.name}/>
                     </div>
                 );
-            }}
-        </StoreContext.Consumer>
+            })}
+        </div>
     );
 };
+
+const mapStateToProps = (state: AppRootStateType) => {
+    return {
+        friends: state.sidebarPage.friends
+    }
+}
+
+export const NavbarFriends = connect(mapStateToProps)(NavbarFriendsComponent);
+
+
