@@ -2,15 +2,9 @@ import React, {useRef} from 'react';
 import classes from './Dialogs.module.css';
 import {DialogItem} from "./dialogItem/DialogItem";
 import {Message} from "./message/Message";
-import {DialogsPageType} from "../redux/store";
+import {DialogsPropsType} from "./DialogsContainer";
 
-type DialogsProps = {
-    dialogsPage: DialogsPageType
-    sendMessage: (message: string) => void
-    updateNewMessageBody: (message: string) => void
-}
-
-export const Dialogs = (props: DialogsProps) => {
+export const Dialogs = (props: DialogsPropsType) => {
 
     let state = props.dialogsPage;
 
@@ -18,13 +12,13 @@ export const Dialogs = (props: DialogsProps) => {
         return (
             <DialogItem key={d.id} name={d.name} id={d.id} img={d.img}/>
         )
-    })
+    });
 
     let messageElement = state.messages.map((m) => {
         return (
             <Message key={m.id} message={m.message}/>
         )
-    })
+    });
 
     const newMessageElement = useRef<HTMLTextAreaElement>(null);
 
@@ -32,34 +26,33 @@ export const Dialogs = (props: DialogsProps) => {
         if (newMessageElement.current) {
             const message = newMessageElement.current.value;
             props.sendMessage(message);
+            newMessageElement.current.value = ''; // Clear the textarea after sending the message
         }
     }
 
     const onNewMessageChange = () => {
         if (newMessageElement.current) {
             const message = newMessageElement.current.value;
-            props.updateNewMessageBody(message)
+            props.updateNewMessageBody(message);
         }
     }
 
     return (
-        <div>
-            <div className={classes.dialogs}>
-                <div className={classes.dialogItems}>
-                    {dialogsElement}
-                </div>
-                <div className={classes.messages}>
-                    {messageElement}
+        <div className={classes.dialogs}>
+            <div className={classes.dialogItems}>
+                {dialogsElement}
+            </div>
+            <div className={classes.messages}>
+                {messageElement}
+            </div>
+            <div>
+                <div>
+                    <textarea ref={newMessageElement} onChange={onNewMessageChange}
+                              value={state.newMessageText}
+                              placeholder={'Enter a message...'}/>
                 </div>
                 <div>
-                    <div>
-                        <textarea ref={newMessageElement} onChange={onNewMessageChange}
-                                  value={props.dialogsPage.newMessageText}
-                                  placeholder={'Enter a message...'}/>
-                    </div>
-                    <div>
-                        <button onClick={addMessageHandler}>Add Message</button>
-                    </div>
+                    <button onClick={addMessageHandler}>Add Message</button>
                 </div>
             </div>
         </div>
