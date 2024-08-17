@@ -1,15 +1,8 @@
 import React, {useRef} from 'react';
 import classes from "./MyPosts.module.css"
 import {Post} from "./posts/Post";
-import {PostDataType} from "../../redux/store";
+import {MyPostType} from "./MyPostsContainer";
 
-
-type MyPostType = {
-    posts: PostDataType[]
-    newPostText: string
-    addPost: (newPostText: string) => void
-    updateNewPostText: (text: string) => void
-}
 
 export const MyPosts = (props: MyPostType) => {
 
