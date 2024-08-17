@@ -8,6 +8,10 @@ import {FriendsDataType} from "../../redux/store";
 type NavbarFriendsProps = {
     friends: FriendsDataType[]
 }
+type MapStatePropsType = {
+    friends: FriendsDataType[]
+}
+
 const NavbarFriendsComponent: React.FC<NavbarFriendsProps> = ({friends}) => {
     return (
         <div>
@@ -25,7 +29,7 @@ const NavbarFriendsComponent: React.FC<NavbarFriendsProps> = ({friends}) => {
     );
 };
 
-const mapStateToProps = (state: AppRootStateType) => {
+const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     return {
         friends: state.sidebarPage.friends
     }
