@@ -2,16 +2,28 @@ import {addPostActionCreator, updateNewPostTextActionCreator} from "../../redux/
 import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/redux-store";
+import {PostDataType} from "../../redux/store";
+import {Dispatch} from "redux";
+
+type MapStatePropsType = {
+    posts: PostDataType[]
+    newPostText: string
+}
+type MapDispatchToPropsType = {
+    updateNewPostText: (text: string) => void
+    addPost: (newPostText: string) => void
+}
+export type MyPostType = MapStatePropsType & MapDispatchToPropsType
 
 
-let mapStateToProps = (state: AppRootStateType) => {
+const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     return {
         posts: state.profilePage.posts,
         newPostText: state.profilePage.newPostText,
     }
 }
 
-let mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
         updateNewPostText: (text: string) => {
             let action = updateNewPostTextActionCreator(text);
