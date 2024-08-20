@@ -1,0 +1,12 @@
+.userPhoto {
+    margin-top: 19px;
+    width: 100px;
+    height: 100px;
+    border-radius: 15px;
+}
+
+.button{
+    width: 100px;
+    height: 19px;
+    border-radius: 5px;
+}
