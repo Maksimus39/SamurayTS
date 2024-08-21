@@ -41,7 +41,7 @@ const initialState: UsersPageType = {
 export const usersPageReducer = (state: UsersPageType = initialState, action: DispatchType): UsersPageType => {
     switch (action.type) {
         case "FOLLOW":
-            console.log(action.userId)
+
             return {
                 ...state,
                 users: state.users.map(u =>
