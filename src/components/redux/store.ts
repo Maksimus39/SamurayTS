@@ -53,15 +53,19 @@ export type FriendsDataType = {
 }
 export type UsersDataType = {
     id: number
-    photoUrl: string
+    photos: PhotosType
     followed: boolean
-    fullName: string
+    name: string
     status: string
     location: LocationType
 }
 type LocationType = {
     city: string
     country: string
+}
+type PhotosType = {
+    large: null
+    small:  null
 }
 
 
