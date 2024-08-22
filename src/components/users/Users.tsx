@@ -6,14 +6,19 @@ import axios from "axios";
 
 
 export let Users = (props: DialogsUsersPropsType) => {
-    if (props.users.length === 0) {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(res => {
-            props.setUsers(res.data.items)
-        })
+
+    let getUsers = () => {
+        if (props.users.length === 0) {
+            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(res => {
+                props.setUsers(res.data.items)
+            })
+        }
     }
+
 
     return (
         <div>
+            <button onClick={getUsers} className={styles.button}>Get users</button>
             {props.users.map(us => (
                 <div key={us.id}>
                     <span>
