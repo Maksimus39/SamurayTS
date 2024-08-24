@@ -1,6 +1,11 @@
 import {AddPostActionType, UpdateNewPostTextActionType} from "./reducer/profilePageReducer";
 import {AddNewMessageTextActionType, UpdateNewMessageTextActionType} from "./reducer/dialogsPageReducer";
-import {FollowActionType, SerUsersActionType, UnfollowActionType} from "./reducer/usersPageReducer";
+import {
+    FollowActionType,
+    SerUsersActionType,
+    setCurrentPageActionCreator, SetCurrentPageActionType, SetUsersTotalCountActionType,
+    UnfollowActionType
+} from "./reducer/usersPageReducer";
 
 
 // type data
@@ -31,6 +36,9 @@ export type SidebarPageType = {
 }
 export type UsersPageType = {
     users: UsersDataType[]
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
 }
 export type DialogDataType = {
     img: string
@@ -65,7 +73,7 @@ type LocationType = {
 }
 type PhotosType = {
     large: null
-    small:  null
+    small: null
 }
 
 
@@ -77,6 +85,8 @@ export type DispatchType =
     | FollowActionType
     | UnfollowActionType
     | SerUsersActionType
+    | SetCurrentPageActionType
+    | SetUsersTotalCountActionType
 
 // state data
 // let store = {
