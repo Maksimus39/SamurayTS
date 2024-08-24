@@ -5,8 +5,12 @@
     border-radius: 15px;
 }
 
-.button{
+.button {
     width: 144px;
     height: 22px;
     border-radius: 5px;
+}
+
+.selectedPage {
+    font-weight: bold;
 }
