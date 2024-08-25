@@ -5,9 +5,12 @@ import {UsersDataType} from "../redux/store";
 import {
     followActionCreator,
     setCurrentPageActionCreator,
-    setUsersActionCreator, setUsersTotalCountActionCreator,
+    setUsersActionCreator,
+    setUsersTotalCountActionCreator,
     unfollowActionCreator
 } from "../redux/reducer/usersPageReducer";
+import React from "react";
+import axios from "axios";
 import {Users} from "./Users";
 
 
@@ -25,6 +28,40 @@ export type MapDispatchToProps = {
     setTotalUsersCount: (totalCount: number) => void
 }
 export type DialogsUsersPropsType = MapStateToProps & MapDispatchToProps;
+
+class UsersContainer extends React.Component<DialogsUsersPropsType, MapStateToProps> {
+
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items);
+                this.props.setTotalUsersCount(response.data.totalCount);
+            })
+    }
+
+    onPageChanged = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items);
+            })
+    }
+
+    render() {
+
+        return (
+            <Users
+                totalUsersCount={this.props.totalUsersCount}
+                pageSize={this.props.pageSize}
+                currentPage={this.props.currentPage}
+                onPageChanged={this.onPageChanged}
+                users={this.props.users}
+                unfollow={this.props.unfollow}
+                follow={this.props.follow}
+            />
+        );
+    }
+}
 
 let mapStateToProps = (state: AppRootStateType): MapStateToProps => {
     return {
@@ -54,4 +91,4 @@ let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
     }
 }
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users)
+export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
