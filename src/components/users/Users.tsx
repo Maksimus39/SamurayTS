@@ -1,53 +1,43 @@
-import React from "react";
 import styles from "./users.module.css";
 import userPhoto from "../assets/images/user.png";
-import axios from "axios";
-import {DialogsUsersPropsType, MapStateToProps} from "./UsersContainer";
+import React from "react";
+import {UsersDataType} from "../redux/store";
 
-export class Users extends React.Component<DialogsUsersPropsType, MapStateToProps> {
 
-    componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.setUsers(response.data.items);
-                this.props.setTotalUsersCount(response.data.totalCount);
-            })
+type UsersProps = {
+    totalUsersCount: number
+    pageSize: number
+    currentPage: number
+    onPageChanged: (pageNumber: number) => void
+    users: UsersDataType[]
+    unfollow: (userId: number) => void
+    follow: (userId: number) => void
+}
+
+export const Users = ({totalUsersCount, pageSize, currentPage, onPageChanged, users, unfollow, follow}: UsersProps) => {
+
+
+    let pagesCount = Math.ceil(totalUsersCount / pageSize)
+    let pages = []
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
     }
 
-    onPageChanged = (pageNumber: any) => {
-        this.props.setCurrentPage(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.setUsers(response.data.items);
-            })
-    }
+    return <div>
+        <div>
 
-    render() {
-
-        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
-        let pages = []
-        for (let i = 1; i <= pagesCount; i++) {
-            pages.push(i)
-        }
-
-
-        return (
-            <div>
-                <div>
-
-                    {pages.map((p) => (
-                        <span key={p} className={this.props.currentPage === p ? styles.selectedPage : ''}
-                              onClick={() => {
-                                  this.onPageChanged(p)
-                              }}>
+            {pages.map((p) => (
+                <span key={p} className={currentPage === p ? styles.selectedPage : ''}
+                      onClick={() => {
+                          onPageChanged(p)
+                      }}>
                             {p}
                         </span>
-                    ))}
-
-                </div>
-                <div>
-                    {this.props.users.map(us => (
-                        <div key={us.id}>
+            ))}
+        </div>
+        <div>
+            {users.map(us => (
+                <div key={us.id}>
                     <span>
                         <div>
                             <img src={us.photos.small != null ? us.photos.small : userPhoto} alt={us.name}
@@ -56,26 +46,23 @@ export class Users extends React.Component<DialogsUsersPropsType, MapStateToProp
                         <div>
                             {us.followed ? (
                                 <button className={styles.button}
-                                        onClick={() => this.props.unfollow(us.id)}>Unfollow</button>
+                                        onClick={() => unfollow(us.id)}>Unfollow</button>
                             ) : (
                                 <button className={styles.button}
-                                        onClick={() => this.props.follow(us.id)}>Follow</button>
+                                        onClick={() => follow(us.id)}>Follow</button>
                             )}
                         </div>
                     </span>
-                            <span>
+                    <span>
                         <div>{us.name}</div>
                         <div>{us.status}</div>
                     </span>
-                            <span>
+                    <span>
                         <div>{'us.location.country'}</div>
                         <div>{'us.location.city'}</div>
                     </span>
-                        </div>
-                    ))}
                 </div>
-            </div>
-
-        );
-    }
+            ))}
+        </div>
+    </div>
 }
