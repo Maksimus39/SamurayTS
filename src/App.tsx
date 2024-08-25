@@ -8,7 +8,10 @@ import {Music} from "./components/music/Music";
 import {Settings} from "./components/settings/Settings";
 import {Profile} from "./components/profile/Profile";
 import {DialogsContainer} from "./components/dialogs/DialogsContainer";
-import {UsersContainer} from "./components/users/UsersContainer";
+import UsersContainer from './components/users/UsersContainer';
+
+
+
 
 
 
