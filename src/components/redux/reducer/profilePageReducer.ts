@@ -9,13 +9,13 @@ export type UpdateNewPostTextActionType = {
     newText: string
 }
 
-export const addPostActionCreator = (newPostText: string): AddPostActionType => {
+export const addPost = (newPostText: string): AddPostActionType => {
     return {
         type: 'ADD-POST',
         newPostText: newPostText
     } as const
 }
-export const updateNewPostTextActionCreator = (newText: string): UpdateNewPostTextActionType => {
+export const updateNewPostText = (newText: string): UpdateNewPostTextActionType => {
     return {
         type: 'UPDATE-NEW-POST-TEXT',
         newText: newText
