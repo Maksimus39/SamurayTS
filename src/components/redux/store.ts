@@ -1,4 +1,4 @@
-import {AddPostActionType, UpdateNewPostTextActionType} from "./reducer/profilePageReducer";
+import {AddPostActionType, SetUserProfileActionType, UpdateNewPostTextActionType} from "./reducer/profilePageReducer";
 import {AddNewMessageTextActionType, UpdateNewMessageTextActionType} from "./reducer/dialogsPageReducer";
 import {
     FollowActionType,
@@ -26,6 +26,7 @@ export type RootStateType = {
 export type ProfilePageType = {
     posts: PostDataType[]
     newPostText: string
+    profile: null
 }
 export type DialogsPageType = {
     dialogs: DialogDataType[]
@@ -74,8 +75,8 @@ type LocationType = {
     country: string
 }
 type PhotosType = {
-    large: null
-    small: null
+    large: string
+    small: string
 }
 
 
@@ -90,5 +91,6 @@ export type DispatchType =
     | SetCurrentPageActionType
     | SetUsersTotalCountActionType
     | ToggleIsFetchingActionType
+    | SetUserProfileActionType
 
 
