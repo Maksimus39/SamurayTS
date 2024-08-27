@@ -4,11 +4,11 @@ import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/redux-store";
 import {PostDataType} from "../../redux/store";
 
-type MapStatePropsType = {
+export type MapStatePropsType = {
     posts: PostDataType[]
     newPostText: string
 }
-type MapDispatchToPropsType = {
+export type MapDispatchToPropsType = {
     updateNewPostText: (text: string) => void
     addPost: (newPostText: string) => void
 }
