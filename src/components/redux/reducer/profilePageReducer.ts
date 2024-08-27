@@ -8,6 +8,10 @@ export type UpdateNewPostTextActionType = {
     type: 'UPDATE-NEW-POST-TEXT'
     newText: string
 }
+export type SetUserProfileActionType = {
+    type: 'SET-USER-PROFILE'
+    profile: null
+}
 
 export const addPost = (newPostText: string): AddPostActionType => {
     return {
@@ -21,6 +25,12 @@ export const updateNewPostText = (newText: string): UpdateNewPostTextActionType 
         newText: newText
     } as const
 }
+export const setUserProfile = (profile: null): SetUserProfileActionType => {
+    return {
+        type: 'SET-USER-PROFILE',
+        profile: profile
+    } as const
+}
 
 let initialState: ProfilePageType = {
     posts: [
@@ -28,6 +38,7 @@ let initialState: ProfilePageType = {
         {id: new Date().getTime(), message: 'it`s my first post', likesCount: 20},
     ],
     newPostText: '',
+    profile: null
 }
 
 export const profilePageReducer = (state: ProfilePageType = initialState, action: DispatchType): ProfilePageType => {
@@ -47,6 +58,10 @@ export const profilePageReducer = (state: ProfilePageType = initialState, action
             return {
                 ...state,
                 newPostText: action.newText
+            }
+        case "SET-USER-PROFILE":
+            return {
+                ...state, profile: action.profile
             }
         default:
             return state
