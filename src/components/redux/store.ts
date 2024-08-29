@@ -9,20 +9,6 @@ import {
 } from "./reducer/usersPageReducer";
 
 
-// type data
-type StoreType = {
-    _state: RootStateType,
-    getState: () => RootStateType,
-    _callSubscriber: () => void,
-    subscribe: (observer: () => void) => void;
-    dispatch: (action: DispatchType) => void
-}
-export type RootStateType = {
-    profilePage: ProfilePageType
-    dialogsPage: DialogsPageType
-    sidebarPage: SidebarPageType
-    // users: UsersPageType
-}
 export type ProfilePageType = {
     posts: PostDataType[]
     newPostText: string
