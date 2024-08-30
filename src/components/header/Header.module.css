@@ -22,3 +22,11 @@
     transform: scale(1.1); /* Увеличение изображения при наведении */
     transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
+
+.loginBlock {
+    float: right;
+}
+.loginBlock a {
+    color: #d0d0d0;
+    text-decoration: none;
+}
