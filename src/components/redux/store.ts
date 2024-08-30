@@ -7,6 +7,7 @@ import {
     SetUsersTotalCountActionType, ToggleIsFetchingActionType,
     UnfollowActionType
 } from "./reducer/usersPageReducer";
+import {SetUserDataActionType} from "./reducer/authPageReducer";
 
 
 export type ProfilePageType = {
@@ -64,7 +65,11 @@ type PhotosType = {
     large: string
     small: string
 }
-
+export type SetUserDataType = {
+    id: null,
+    login: null,
+    email: null,
+}
 
 export type DispatchType =
     AddPostActionType
@@ -78,5 +83,6 @@ export type DispatchType =
     | SetUsersTotalCountActionType
     | ToggleIsFetchingActionType
     | SetUserProfileActionType
+    | SetUserDataActionType
 
 
