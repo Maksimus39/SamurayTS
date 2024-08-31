@@ -66,9 +66,10 @@ type PhotosType = {
     small: string
 }
 export type SetUserDataType = {
-    id: null,
+    userId: null,
     login: null,
     email: null,
+    isAuth: boolean
 }
 
 export type DispatchType =
