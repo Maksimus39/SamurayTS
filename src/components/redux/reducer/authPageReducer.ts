@@ -1,21 +1,21 @@
-// ActionType
 import {DispatchType, SetUserDataType} from "../store";
 
+// ActionType
 export type SetUserDataActionType = {
     type: 'SET-USER-DATA'
     data: {
-        id: null,
+        userId: null,
         login: null,
         email: null
     }
 }
 
 // AC
-export const setUserData = (id: null, login: null, email: null): SetUserDataActionType => {
+export const setAuthUserData = (id: null, login: null, email: null): SetUserDataActionType => {
     return {
         type: 'SET-USER-DATA',
         data: {
-            id: id,
+            userId: id,
             login: login,
             email: email
         }
@@ -24,20 +24,19 @@ export const setUserData = (id: null, login: null, email: null): SetUserDataActi
 
 
 const initialState: SetUserDataType = {
-    id: null,
+    userId: null,
     login: null,
     email: null,
-    //isFetching: false,
+    isAuth: false,
 }
 
 export const authReducer = (state: SetUserDataType = initialState, action: DispatchType): SetUserDataType => {
     switch (action.type) {
         case "SET-USER-DATA":
             return {
-                ...state, ...action.data
+                ...state, ...action.data, isAuth: true
             }
         default:
             return state
     }
-
 }
