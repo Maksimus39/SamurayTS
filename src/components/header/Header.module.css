@@ -15,6 +15,7 @@
     max-width: 100%;
     width: 80px; /* Увеличенный размер изображения */
     margin-right: 20px; /* Увеличенный отступ */
+    border-radius: 10px; /* Увеличенный радиус закругления */
 }
 
 .header img:hover {
