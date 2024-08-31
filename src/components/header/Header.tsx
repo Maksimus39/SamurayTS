@@ -4,17 +4,29 @@ import {NavLink} from "react-router-dom";
 
 
 type HeaderProps = {
-    img:string
+    isAuth: boolean
+    email:any
+    login: any
 }
 export const Header = (props: HeaderProps) => {
+
     return (
         <header className={classes.header}>
-            <img src={props.img} alt=""/>
+            <img src='https://avatars.mds.yandex.net/i?id=7a3f7ada082cecc5d96c66033cf2bff22b65750c-10126262-images-thumbs&n=13' alt=""/>
 
             <div className={classes.loginBlock}>
-                <NavLink to={'/login'}>
+
+                {props.isAuth ?
+
+                    <div>
+                        <div>{props.login}</div>
+                        <div>{props.email}</div>
+                    </div>
+
+                    : <NavLink to={'/login'}>
                     Login
-                </NavLink>
+                    </NavLink>
+                }
             </div>
         </header>
     )
