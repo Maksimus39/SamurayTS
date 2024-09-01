@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import {AppRootStateType} from "../redux/redux-store";
 import {setAuthUserData} from "../redux/reducer/authPageReducer";
 
-class HeaderContainer extends React.Component<any, any> {
+class HeaderContainer extends React.Component<any, MapStateToPropsType> {
 
     componentDidMount() {
 
