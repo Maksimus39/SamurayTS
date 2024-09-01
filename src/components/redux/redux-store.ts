@@ -17,3 +17,8 @@ let reducer = combineReducers({
 export type AppRootStateType = ReturnType<typeof reducer>
 
 export let store: Store<AppRootStateType> = createStore(reducer);
+
+
+// а это, чтобы можно было в консоли браузера обращаться к store в любой момент
+// @ts-ignore
+window.store = store
