@@ -3,6 +3,7 @@ import userPhoto from "../assets/images/user.png";
 import React from "react";
 import {UsersDataType} from "../redux/store";
 import {NavLink} from "react-router-dom";
+import axios from "axios";
 
 
 type UsersProps = {
@@ -48,20 +49,47 @@ export const Users = ({totalUsersCount, pageSize, currentPage, onPageChanged, us
                             </NavLink>
                         </div>
                         <div>
-                            {us.followed ? (
-                                <button className={styles.button}
-                                        onClick={() => unfollow(us.id)}>Unfollow</button>
-                            ) : (
-                                <button className={styles.button}
-                                        onClick={() => follow(us.id)}>Follow</button>
-                            )}
+
+                            {us.followed
+                                ? <button className={styles.button} onClick={() => {
+
+                                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${us.id}`, {
+                                        withCredentials: true,
+                                        headers: {
+                                            'API-KEY': 'e6eaa2aa-df7a-4193-8c16-782484153fda'
+                                        }
+                                    })
+                                        .then(response => {
+                                            if (response.data.resultCode === 0) {
+                                                unfollow(us.id)
+                                            }
+                                        })
+                                }}>Unfollow</button>
+
+                                : <button className={styles.button} onClick={() => {
+
+                                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${us.id}`, {}, {
+                                        withCredentials: true,
+                                        headers: {
+                                            'API-KEY': 'e6eaa2aa-df7a-4193-8c16-782484153fda'
+                                        }
+                                    })
+                                        .then(response => {
+                                            if (response.data.resultCode === 0) {
+                                                follow(us.id)
+                                            }
+                                        })
+                                }}>Follow</button>
+                            }
                         </div>
                     </span>
                     <span>
+
                         <div>{us.name}</div>
                         <div>{us.status}</div>
                     </span>
                     <span>
+
                         <div>{'us.location.country'}</div>
                         <div>{'us.location.city'}</div>
                     </span>
