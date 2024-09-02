@@ -1,10 +1,9 @@
 import styles from "./users.module.css";
 import userPhoto from "../assets/images/user.png";
 import React from "react";
-import {UsersDataType} from "../redux/store";
-import {NavLink} from "react-router-dom";
-import {usersApi} from "../api/api";
-
+import { UsersDataType } from "../redux/store";
+import { NavLink } from "react-router-dom";
+import { usersApi } from "../api/api";
 
 type UsersProps = {
     totalUsersCount: number
@@ -14,6 +13,8 @@ type UsersProps = {
     users: UsersDataType[]
     unfollow: (userId: number) => void
     follow: (userId: number) => void
+    toggleIsFollowingProgress: (followingInProgress: boolean) => void
+    followingInProgress: boolean
 }
 
 export const Users = ({
@@ -23,9 +24,10 @@ export const Users = ({
                           onPageChanged,
                           users,
                           unfollow,
-                          follow
-                      }
-                          : UsersProps) => {
+                          follow,
+                          toggleIsFollowingProgress,
+                          followingInProgress,
+                      }: UsersProps) => {
 
     let pagesCount = Math.ceil(totalUsersCount / pageSize)
     let pages = []
@@ -35,14 +37,11 @@ export const Users = ({
 
     return <div>
         <div>
-
             {pages.map((p) => (
                 <span key={p} className={currentPage === p ? styles.selectedPage : ''}
-                      onClick={() => {
-                          onPageChanged(p)
-                      }}>
-                            {p}
-                        </span>
+                      onClick={() => { onPageChanged(p) }}>
+                    {p}
+                </span>
             ))}
         </div>
         <div>
@@ -50,42 +49,40 @@ export const Users = ({
                 <div key={us.id}>
                     <span>
                         <div>
-
                             <NavLink to={'/profile/' + us.id}>
-                                 <img src={us.photos.small != null ? us.photos.small : userPhoto} alt={us.name}
-                                      className={styles.userPhoto}/>
+                                <img src={us.photos.small != null ? us.photos.small : userPhoto} alt={us.name}
+                                     className={styles.userPhoto} />
                             </NavLink>
                         </div>
                         <div>
-
                             {us.followed
-                                ? <button className={styles.button} onClick={() => {
-
+                                ? <button disabled={followingInProgress} className={styles.button} onClick={() => {
+                                    toggleIsFollowingProgress(true)
                                     usersApi.unfollowUser(us.id).then(data => {
                                         if (data.resultCode === 0) {
                                             unfollow(us.id)
                                         }
+                                        toggleIsFollowingProgress(false)
                                     })
                                 }}>Unfollow</button>
 
-                                : <button className={styles.button} onClick={() => {
-
+                                : <button disabled={followingInProgress} className={styles.button} onClick={() => {
+                                    toggleIsFollowingProgress(true)
                                     usersApi.followUser(us.id).then(data => {
                                         if (data.resultCode === 0) {
                                             follow(us.id)
                                         }
+                                        toggleIsFollowingProgress(false)
                                     })
                                 }}>Follow</button>
                             }
                         </div>
                     </span>
                     <span>
-
                         <div>{us.name}</div>
                         <div>{us.status}</div>
                     </span>
                     <span>
-
                         <div>{'us.location.country'}</div>
                         <div>{'us.location.city'}</div>
                     </span>
