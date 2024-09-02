@@ -2,9 +2,9 @@ import {AddPostActionType, SetUserProfileActionType, UpdateNewPostTextActionType
 import {AddNewMessageTextActionType, UpdateNewMessageTextActionType} from "./reducer/dialogsPageReducer";
 import {
     FollowActionType,
-    SerUsersActionType,
-    SetCurrentPageActionType,
-    SetUsersTotalCountActionType, ToggleIsFetchingActionType,
+
+    SetCurrentPageActionType, SetUsersActionType,
+    SetUsersTotalCountActionType, ToggleIsFetchingActionType, ToggleIsFollowingProgressActionType,
     UnfollowActionType
 } from "./reducer/usersPageReducer";
 import {SetUserDataActionType} from "./reducer/authPageReducer";
@@ -29,6 +29,7 @@ export type UsersPageType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: boolean
 }
 export type DialogDataType = {
     img: string
@@ -79,11 +80,12 @@ export type DispatchType =
     | UpdateNewMessageTextActionType
     | FollowActionType
     | UnfollowActionType
-    | SerUsersActionType
+    | SetUsersActionType
     | SetCurrentPageActionType
     | SetUsersTotalCountActionType
     | ToggleIsFetchingActionType
     | SetUserProfileActionType
     | SetUserDataActionType
+    | ToggleIsFollowingProgressActionType
 
 
