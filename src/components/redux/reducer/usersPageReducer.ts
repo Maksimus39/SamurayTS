@@ -1,4 +1,5 @@
-import {DispatchType, UsersDataType, UsersPageType} from "../store";
+// usersPageReducer.ts
+import { DispatchType, UsersDataType, UsersPageType } from "../store";
 
 export type FollowActionType = {
     type: 'FOLLOW'
@@ -8,7 +9,7 @@ export type UnfollowActionType = {
     type: 'UNFOLLOW'
     userId: number
 }
-export type SerUsersActionType = {
+export type SetUsersActionType = {
     type: 'SET-USERS'
     users: UsersDataType[]
 }
@@ -24,52 +25,48 @@ export type ToggleIsFetchingActionType = {
     type: 'TOGGLE-IS-FETCHING'
     isFetching: boolean
 }
+export type ToggleIsFollowingProgressActionType = {
+    type: 'TOGGLE-IS-FOLLOWING-PROGRESS'
+    followingInProgress: boolean
+}
 
-export const follow = (userId: number): FollowActionType => {
-    return {
-        type: 'FOLLOW',
-        userId: userId
-    } as const
-}
-export const unfollow = (userId: number): UnfollowActionType => {
-    return {
-        type: 'UNFOLLOW',
-        userId: userId
-    } as const
-}
-export const setUsers = (users: UsersDataType[]): SerUsersActionType => {
-    return {
-        type: 'SET-USERS',
-        users: users
-    } as const
-}
-export const setCurrentPage = (currentPage: number): SetCurrentPageActionType => {
-    return {
-        type: 'SET-CURRENT-PAGE',
-        currentPage: currentPage
-    } as const
-}
-export const setUsersTotalCount = (totalUsersCount: number): SetUsersTotalCountActionType => {
-    return {
-        type: 'SET-USERS-COUNT',
-        totalUsersCount: totalUsersCount
-    } as const
-}
-export const toggleIsFetching = (isFetching: boolean) => {
-    return {
-        type: 'TOGGLE-IS-FETCHING',
-        isFetching: isFetching
-    } as const
-}
+export const follow = (userId: number): FollowActionType => ({
+    type: 'FOLLOW',
+    userId
+});
+export const unfollow = (userId: number): UnfollowActionType => ({
+    type: 'UNFOLLOW',
+    userId
+});
+export const setUsers = (users: UsersDataType[]): SetUsersActionType => ({
+    type: 'SET-USERS',
+    users
+});
+export const setCurrentPage = (currentPage: number): SetCurrentPageActionType => ({
+    type: 'SET-CURRENT-PAGE',
+    currentPage
+});
+export const setUsersTotalCount = (totalUsersCount: number): SetUsersTotalCountActionType => ({
+    type: 'SET-USERS-COUNT',
+    totalUsersCount
+});
+export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingActionType => ({
+    type: 'TOGGLE-IS-FETCHING',
+    isFetching
+});
+export const toggleIsFollowingProgress = (followingInProgress: boolean): ToggleIsFollowingProgressActionType => ({
+    type: 'TOGGLE-IS-FOLLOWING-PROGRESS',
+    followingInProgress
+});
 
 const initialState: UsersPageType = {
     users: [],
     pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: false,
+    isFetching: true,
+    followingInProgress: false,
 }
-
 
 export const usersPageReducer = (state: UsersPageType = initialState, action: DispatchType): UsersPageType => {
     switch (action.type) {
@@ -77,14 +74,14 @@ export const usersPageReducer = (state: UsersPageType = initialState, action: Di
             return {
                 ...state,
                 users: state.users.map(u =>
-                    u.id === action.userId ? {...u, followed: true} : u
+                    u.id === action.userId ? { ...u, followed: true } : u
                 )
             };
         case "UNFOLLOW":
             return {
                 ...state,
                 users: state.users.map(u =>
-                    u.id === action.userId ? {...u, followed: false} : u
+                    u.id === action.userId ? { ...u, followed: false } : u
                 )
             };
         case "SET-USERS":
@@ -103,8 +100,11 @@ export const usersPageReducer = (state: UsersPageType = initialState, action: Di
             return {
                 ...state, isFetching: action.isFetching
             }
+        case "TOGGLE-IS-FOLLOWING-PROGRESS":
+            return {
+                ...state, followingInProgress: action.followingInProgress
+            }
         default:
             return state;
     }
 };
-
