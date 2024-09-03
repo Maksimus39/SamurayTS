@@ -1,6 +1,9 @@
 // usersPageReducer.ts
-import { DispatchType, UsersDataType, UsersPageType } from "../store";
+import {DispatchType, UsersDataType, UsersPageType} from "../store";
+import {usersApi} from "../../api/api";
+import {Dispatch} from "redux";
 
+// Action type
 export type FollowActionType = {
     type: 'FOLLOW'
     userId: number
@@ -30,6 +33,7 @@ export type ToggleIsFollowingProgressActionType = {
     followingInProgress: boolean
 }
 
+// Action creator
 export const follow = (userId: number): FollowActionType => ({
     type: 'FOLLOW',
     userId
@@ -59,6 +63,31 @@ export const toggleIsFollowingProgress = (followingInProgress: boolean): ToggleI
     followingInProgress
 });
 
+// Thunk creator type
+type getUserThunkCreatorType = FollowActionType
+    | UnfollowActionType
+    | SetUsersActionType
+    | SetCurrentPageActionType
+    | SetUsersTotalCountActionType
+    | ToggleIsFetchingActionType
+    | ToggleIsFollowingProgressActionType
+
+// Thunk creator
+export const getUserThunkCreator = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch<getUserThunkCreatorType>) => {
+        dispatch(toggleIsFetching(true))
+
+        usersApi.getUsers({
+            currentPage: currentPage,
+            pageSize: pageSize
+        }).then(data => {
+            dispatch(toggleIsFetching(false));
+            dispatch(setUsers(data.items));
+            dispatch(setUsersTotalCount(data.totalCount));
+        });
+    }
+}
+
 const initialState: UsersPageType = {
     users: [],
     pageSize: 10,
@@ -74,14 +103,14 @@ export const usersPageReducer = (state: UsersPageType = initialState, action: Di
             return {
                 ...state,
                 users: state.users.map(u =>
-                    u.id === action.userId ? { ...u, followed: true } : u
+                    u.id === action.userId ? {...u, followed: true} : u
                 )
             };
         case "UNFOLLOW":
             return {
                 ...state,
                 users: state.users.map(u =>
-                    u.id === action.userId ? { ...u, followed: false } : u
+                    u.id === action.userId ? {...u, followed: false} : u
                 )
             };
         case "SET-USERS":
