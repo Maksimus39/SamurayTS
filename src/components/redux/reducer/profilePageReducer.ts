@@ -1,5 +1,8 @@
 import {DispatchType, PostDataType, ProfilePageType} from "../store";
+import {Dispatch} from "redux";
+import {usersApi} from "../../api/api";
 
+// Action type
 export type AddPostActionType = {
     type: 'ADD-POST'
     newPostText: string
@@ -13,6 +16,7 @@ export type SetUserProfileActionType = {
     profile: null
 }
 
+// Action creator
 export const addPost = (newPostText: string): AddPostActionType => {
     return {
         type: 'ADD-POST',
@@ -30,6 +34,20 @@ export const setUserProfile = (profile: null): SetUserProfileActionType => {
         type: 'SET-USER-PROFILE',
         profile: profile
     } as const
+}
+
+// Thunk creator type
+type ProfileThunkCreatorType = AddPostActionType
+    | UpdateNewPostTextActionType
+    | SetUserProfileActionType
+
+// Thunk creator
+export const profileThunkCreator = (userId: number) => {
+    return (dispatch: Dispatch<ProfileThunkCreatorType>) => {
+        usersApi.getProfile(userId).then(data => {
+            dispatch(setUserProfile(data))
+        })
+    }
 }
 
 let initialState: ProfilePageType = {
