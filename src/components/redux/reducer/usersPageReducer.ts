@@ -1,4 +1,3 @@
-// usersPageReducer.ts
 import {DispatchType, UsersDataType, UsersPageType} from "../store";
 import {usersApi} from "../../api/api";
 import {Dispatch} from "redux";
@@ -34,11 +33,11 @@ export type ToggleIsFollowingProgressActionType = {
 }
 
 // Action creator
-export const follow = (userId: number): FollowActionType => ({
+export const followSuccess = (userId: number): FollowActionType => ({
     type: 'FOLLOW',
     userId
 });
-export const unfollow = (userId: number): UnfollowActionType => ({
+export const unfollowSuccess = (userId: number): UnfollowActionType => ({
     type: 'UNFOLLOW',
     userId
 });
@@ -85,6 +84,28 @@ export const getUserThunkCreator = (currentPage: number, pageSize: number) => {
             dispatch(setUsers(data.items));
             dispatch(setUsersTotalCount(data.totalCount));
         });
+    }
+}
+export const follow = (userId: number) => {
+    return (dispatch: Dispatch<getUserThunkCreatorType>) => {
+        dispatch(toggleIsFollowingProgress(true))
+        usersApi.followUser(userId).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(followSuccess(userId))
+            }
+            dispatch(toggleIsFollowingProgress(false))
+        })
+    }
+}
+export const unfollow = (userId: number) => {
+    return (dispatch: Dispatch<getUserThunkCreatorType>) => {
+        dispatch(toggleIsFollowingProgress(true))
+        usersApi.unfollowUser(userId).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(unfollowSuccess(userId))
+            }
+            dispatch(toggleIsFollowingProgress(false))
+        })
     }
 }
 
