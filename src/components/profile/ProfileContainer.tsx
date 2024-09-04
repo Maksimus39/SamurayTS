@@ -1,11 +1,10 @@
 import React from "react";
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {setUserProfile} from "../redux/reducer/profilePageReducer";
+import {profileThunkCreator, setUserProfile} from "../redux/reducer/profilePageReducer";
 import {AppRootStateType} from "../redux/redux-store";
 import {ProfilePageType, UsersDataType} from "../redux/store";
 import {withRouter} from "react-router-dom";
-import {usersApi} from "../api/api";
 
 export type MapStateToProps = {
     profile: ProfilePageType["profile"] | UsersDataType | null;
@@ -26,9 +25,10 @@ class ProfileContainer extends React.Component<any, DialogsUsersPropsType> {
         if (!userId) {
             userId = 2
         }
-        usersApi.getProfile(userId).then(data=>{
-            this.props.setUserProfile(data)
-        })
+        this.props.profileThunkCreator(userId)
+        // usersApi.getProfile(userId).then(data=>{
+        //     this.props.setUserProfile(data)
+        // })
     }
 
     render() {
@@ -50,4 +50,7 @@ let mapStateToProps = (state: AppRootStateType): MapStateToProps => ({
 
 let WithUrlDataContainerComponent = withRouter(ProfileContainer)
 
-export default connect(mapStateToProps, {setUserProfile})(WithUrlDataContainerComponent);
+export default connect(mapStateToProps, {
+    setUserProfile,
+    profileThunkCreator
+})(WithUrlDataContainerComponent);
