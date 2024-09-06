@@ -4,10 +4,11 @@ import {connect} from "react-redux";
 import {profileThunkCreator, setUserProfile} from "../redux/reducer/profilePageReducer";
 import {AppRootStateType} from "../redux/redux-store";
 import {ProfilePageType, UsersDataType} from "../redux/store";
-import {withRouter} from "react-router-dom";
+import {Redirect, withRouter} from "react-router-dom";
 
 export type MapStateToProps = {
     profile: ProfilePageType["profile"] | UsersDataType | null;
+    isAuth: boolean
 }
 export type MapDispatchToProps = {
     updateNewPostText: (text: string) => void
@@ -32,6 +33,8 @@ class ProfileContainer extends React.Component<any, DialogsUsersPropsType> {
     }
 
     render() {
+
+        if (this.props.isAuth === false) return <Redirect to={'/login'}/>;
         return (
             <div>
                 <Profile
@@ -45,6 +48,7 @@ class ProfileContainer extends React.Component<any, DialogsUsersPropsType> {
 
 let mapStateToProps = (state: AppRootStateType): MapStateToProps => ({
     profile: state.profilePage.profile,
+    isAuth: state.auth.isAuth
 });
 
 
