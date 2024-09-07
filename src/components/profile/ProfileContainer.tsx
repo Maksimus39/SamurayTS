@@ -4,12 +4,17 @@ import {connect} from "react-redux";
 import {profileThunkCreator, setUserProfile} from "../redux/reducer/profilePageReducer";
 import {AppRootStateType} from "../redux/redux-store";
 import {ProfilePageType, UsersDataType} from "../redux/store";
-import {Redirect, withRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
+import {withAuthRedirect} from "../hoc/WithAuthRedirect";
+
+
 
 export type MapStateToProps = {
     profile: ProfilePageType["profile"] | UsersDataType | null;
     isAuth: boolean
 }
+
+
 export type MapDispatchToProps = {
     updateNewPostText: (text: string) => void
     addPost: (newPostText: string) => void
@@ -34,7 +39,7 @@ class ProfileContainer extends React.Component<any, DialogsUsersPropsType> {
 
     render() {
 
-        if (this.props.isAuth === false) return <Redirect to={'/login'}/>;
+
         return (
             <div>
                 <Profile
@@ -46,13 +51,18 @@ class ProfileContainer extends React.Component<any, DialogsUsersPropsType> {
     }
 }
 
+
+let AuthRedirectComponent = withAuthRedirect(ProfileContainer)
+
+
+
 let mapStateToProps = (state: AppRootStateType): MapStateToProps => ({
     profile: state.profilePage.profile,
     isAuth: state.auth.isAuth
 });
 
 
-let WithUrlDataContainerComponent = withRouter(ProfileContainer)
+let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
 
 export default connect(mapStateToProps, {
     setUserProfile,
