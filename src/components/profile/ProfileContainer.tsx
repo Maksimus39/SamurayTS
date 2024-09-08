@@ -8,20 +8,15 @@ import {withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../hoc/WithAuthRedirect";
 
 
-
 export type MapStateToProps = {
     profile: ProfilePageType["profile"] | UsersDataType | null;
-    isAuth: boolean
 }
-
-
 export type MapDispatchToProps = {
     updateNewPostText: (text: string) => void
     addPost: (newPostText: string) => void
     setUserProfile: (profile: null) => void
 }
 export type DialogsUsersPropsType = MapStateToProps & MapDispatchToProps;
-
 
 class ProfileContainer extends React.Component<any, DialogsUsersPropsType> {
 
@@ -32,13 +27,9 @@ class ProfileContainer extends React.Component<any, DialogsUsersPropsType> {
             userId = 2
         }
         this.props.profileThunkCreator(userId)
-        // usersApi.getProfile(userId).then(data=>{
-        //     this.props.setUserProfile(data)
-        // })
     }
 
     render() {
-
 
         return (
             <div>
@@ -51,14 +42,11 @@ class ProfileContainer extends React.Component<any, DialogsUsersPropsType> {
     }
 }
 
-
 let AuthRedirectComponent = withAuthRedirect(ProfileContainer)
-
 
 
 let mapStateToProps = (state: AppRootStateType): MapStateToProps => ({
     profile: state.profilePage.profile,
-    isAuth: state.auth.isAuth
 });
 
 
