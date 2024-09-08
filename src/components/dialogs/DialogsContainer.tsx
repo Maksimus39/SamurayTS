@@ -8,7 +8,6 @@ import {withAuthRedirect} from "../hoc/WithAuthRedirect";
 
 type MapStatePropsType = {
     dialogsPage: DialogsPageType
-    isAuth: boolean
 }
 type MapDispatchToPropsType = {
     updateNewMessageBody: (message: string) => void
@@ -20,7 +19,6 @@ export type DialogsPropsType = MapStatePropsType & MapDispatchToPropsType;
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     return {
         dialogsPage: state.dialogsPage,
-        isAuth: state.auth.isAuth
     }
 }
 
@@ -35,9 +33,6 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     }
 }
 
-
 let AuthRedirectComponent = withAuthRedirect(Dialogs)
-
-
 
 export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
