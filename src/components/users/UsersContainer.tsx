@@ -14,6 +14,7 @@ import {
     unfollow
 } from "../redux/reducer/usersPageReducer";
 import {Users} from "./Users";
+import {withAuthRedirect} from "../hoc/WithAuthRedirect";
 
 export type MapStateToProps = {
     users: UsersDataType[]
@@ -73,6 +74,8 @@ let mapStateToProps = (state: AppRootStateType): MapStateToProps => {
     }
 }
 
+let withRedirect = withAuthRedirect(UsersContainer)
+
 export default connect(mapStateToProps, {
     follow,
     unfollow,
@@ -82,4 +85,4 @@ export default connect(mapStateToProps, {
     toggleIsFetching,
     toggleIsFollowingProgress,
     getUserThunkCreator,
-})(UsersContainer)
+})(withRedirect)
