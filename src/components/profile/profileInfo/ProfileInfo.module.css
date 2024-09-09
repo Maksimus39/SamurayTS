@@ -1,0 +1,13 @@
+.avatar img {
+    width: 1000px;
+    height: 600px;
+   border-radius: 25px;
+}
+
+.profileBackground {
+    margin-top: 11px;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 25px;
+}
