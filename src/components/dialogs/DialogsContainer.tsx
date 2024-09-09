@@ -3,8 +3,9 @@ import {addNewMessageTextActionCreator, updateNewMessageTextActionCreator} from 
 import {connect} from "react-redux";
 import {Dialogs} from "./Dialogs";
 import {DialogsPageType} from "../redux/store";
-import {Dispatch} from "redux";
+import {compose, Dispatch} from "redux";
 import {withAuthRedirect} from "../hoc/WithAuthRedirect";
+import React from "react";
 
 type MapStatePropsType = {
     dialogsPage: DialogsPageType
@@ -21,7 +22,6 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
         dialogsPage: state.dialogsPage,
     }
 }
-
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
         updateNewMessageBody: (message: string) => {
@@ -33,6 +33,8 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     }
 }
 
-let AuthRedirectComponent = withAuthRedirect(Dialogs)
 
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+)(Dialogs)

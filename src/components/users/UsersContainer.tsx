@@ -15,6 +15,7 @@ import {
 } from "../redux/reducer/usersPageReducer";
 import {Users} from "./Users";
 import {withAuthRedirect} from "../hoc/WithAuthRedirect";
+import {compose} from "redux";
 
 export type MapStateToProps = {
     users: UsersDataType[]
@@ -74,15 +75,16 @@ let mapStateToProps = (state: AppRootStateType): MapStateToProps => {
     }
 }
 
-let withRedirect = withAuthRedirect(UsersContainer)
-
-export default connect(mapStateToProps, {
-    follow,
-    unfollow,
-    setUsers,
-    setCurrentPage,
-    setUsersTotalCount,
-    toggleIsFetching,
-    toggleIsFollowingProgress,
-    getUserThunkCreator,
-})(withRedirect)
+export default compose<React.ComponentType>(
+    withAuthRedirect,
+    connect(mapStateToProps, {
+        follow,
+        unfollow,
+        setUsers,
+        setCurrentPage,
+        setUsersTotalCount,
+        toggleIsFetching,
+        toggleIsFollowingProgress,
+        getUserThunkCreator,
+    })
+)(UsersContainer)

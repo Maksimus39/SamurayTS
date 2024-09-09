@@ -2,10 +2,11 @@ import React from "react";
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {profileThunkCreator, setUserProfile} from "../redux/reducer/profilePageReducer";
-import {AppRootStateType} from "../redux/redux-store";
 import {ProfilePageType, UsersDataType} from "../redux/store";
 import {withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../hoc/WithAuthRedirect";
+import {compose} from "redux";
+import {AppRootStateType} from "../redux/redux-store";
 
 
 export type MapStateToProps = {
@@ -42,17 +43,13 @@ class ProfileContainer extends React.Component<any, DialogsUsersPropsType> {
     }
 }
 
-let AuthRedirectComponent = withAuthRedirect(ProfileContainer)
-
-
 let mapStateToProps = (state: AppRootStateType): MapStateToProps => ({
     profile: state.profilePage.profile,
 });
 
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, { setUserProfile, profileThunkCreator }),
+    withRouter,
+    withAuthRedirect
+)(ProfileContainer)
 
-let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
-
-export default connect(mapStateToProps, {
-    setUserProfile,
-    profileThunkCreator
-})(WithUrlDataContainerComponent);
