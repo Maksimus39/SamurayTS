@@ -7,6 +7,8 @@ import {ProfileStatus} from "../ProfileStatus";
 
 type ProfileInfoProps = {
     profile: ProfileType;
+    status: string
+    updateStatus: string
 }
 
 const Contacts = ({contacts}: { contacts: ContactsType }) => (
@@ -32,7 +34,10 @@ export const ProfileInfo = (props: ProfileInfoProps) => {
                     src="https://avatars.dzeninfra.ru/get-zen_doc/271828/pub_655658c72ac2da7753ee753c_6556596de3bfcb307785efa6/scale_1200"
                     alt="Profile background"
                 />
-                <h4>status: <ProfileStatus status={'Hello my friends'}/></h4>
+                <h4>status: <ProfileStatus
+                    status={props.status}
+                    updateStatus={props.updateStatus}/>
+                </h4>
             </div>
 
             <div>
