@@ -15,6 +15,11 @@ export type SetUserProfileActionType = {
     type: 'SET-USER-PROFILE'
     profile: null
 }
+export type SetStatusActionType = {
+    type: 'SET-STATUS'
+    status: string
+}
+
 
 // Action creator
 export const addPost = (newPostText: string): AddPostActionType => {
@@ -35,11 +40,19 @@ export const setUserProfile = (profile: null): SetUserProfileActionType => {
         profile: profile
     } as const
 }
+export const setStatus = (status: string): SetStatusActionType => {
+    return {
+        type: 'SET-STATUS',
+        status: status
+    } as const
+}
+
 
 // Thunk creator type
 type ProfileThunkCreatorType = AddPostActionType
     | UpdateNewPostTextActionType
     | SetUserProfileActionType
+    | SetStatusActionType
 
 // Thunk creator
 export const profileThunkCreator = (userId: number) => {
@@ -49,6 +62,24 @@ export const profileThunkCreator = (userId: number) => {
         })
     }
 }
+export const getStatus = (userId: number) => {
+    return (dispatch: Dispatch<ProfileThunkCreatorType>) => {
+        usersApi.getStatus(userId).then(response => {
+            //debugger
+            dispatch(setStatus(response))
+        })
+    }
+}
+export const updateStatus = (status: string) => {
+    return (dispatch: Dispatch<ProfileThunkCreatorType>) => {
+        usersApi.updateStatus(status).then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setStatus(status))
+            }
+        })
+    }
+}
+
 
 let initialState: ProfilePageType = {
     posts: [
@@ -56,7 +87,8 @@ let initialState: ProfilePageType = {
         {id: new Date().getTime(), message: 'it`s my first post', likesCount: 20},
     ],
     newPostText: '',
-    profile: null
+    profile: null,
+    status: ''
 }
 
 export const profilePageReducer = (state: ProfilePageType = initialState, action: DispatchType): ProfilePageType => {
@@ -80,6 +112,10 @@ export const profilePageReducer = (state: ProfilePageType = initialState, action
         case "SET-USER-PROFILE":
             return {
                 ...state, profile: action.profile
+            }
+        case "SET-STATUS":
+            return {
+                ...state, status: action.status
             }
         default:
             return state
