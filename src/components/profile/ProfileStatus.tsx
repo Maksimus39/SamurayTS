@@ -3,39 +3,49 @@ import React from 'react';
 // type StatusProps StatusState
 type ProfileStatusProps = {
     status: string
+    updateStatus: any
 }
-
 type ProfileStatusState = {
     editMode: boolean
+    status: string
 }
 
 export class ProfileStatus extends React.Component <ProfileStatusProps, ProfileStatusState> {
 
     state: ProfileStatusState = {
-        editMode: false
+        editMode: false,
+        status: this.props.status
     }
 
-    activateEditMode() {
+    activateEditMode = () => {
         this.setState({editMode: true})
     }
 
-    deactivateEditMode() {
+    deactivateEditMode = () => {
         this.setState({editMode: false})
+        this.props.updateStatus(this.state.status)
+    }
+
+    onStatusChange = (event: any) => {
+        this.setState({
+            status: event.currentTarget.value
+        })
     }
 
     render() {
         return <>
             {!this.state.editMode &&
                 <span
-                    onDoubleClick={this.activateEditMode.bind(this)}>{this.props.status}
+                    onDoubleClick={this.activateEditMode}>{this.props.status || 'No status'}
                 </span>
             }
 
             {
                 this.state.editMode &&
                 <input
-                    onBlur={this.deactivateEditMode.bind(this)}
-                    value={this.props.status}
+                    onChange={this.onStatusChange}
+                    onBlur={this.deactivateEditMode}
+                    value={this.state.status}
                     placeholder={'Hello my friends'}
                     autoFocus
                 />
