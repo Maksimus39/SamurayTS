@@ -1,4 +1,9 @@
-import {AddPostActionType, SetUserProfileActionType, UpdateNewPostTextActionType} from "./reducer/profilePageReducer";
+import {
+    AddPostActionType,
+    SetStatusActionType,
+    SetUserProfileActionType,
+    UpdateNewPostTextActionType
+} from "./reducer/profilePageReducer";
 import {AddNewMessageTextActionType, UpdateNewMessageTextActionType} from "./reducer/dialogsPageReducer";
 import {
     FollowActionType,
@@ -14,6 +19,7 @@ export type ProfilePageType = {
     posts: PostDataType[]
     newPostText: string
     profile: null
+    status: string
 }
 export type DialogsPageType = {
     dialogs: DialogDataType[]
@@ -87,5 +93,6 @@ export type DispatchType =
     | SetUserProfileActionType
     | SetUserDataActionType
     | ToggleIsFollowingProgressActionType
+    | SetStatusActionType
 
 
