@@ -3,6 +3,7 @@ import classes from './Dialogs.module.css';
 import {DialogItem} from "./dialogItem/DialogItem";
 import {Message} from "./message/Message";
 import {DialogsPropsType} from "./DialogsContainer";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
 
 export const Dialogs = (props: DialogsPropsType) => {
@@ -38,6 +39,11 @@ export const Dialogs = (props: DialogsPropsType) => {
         }
     }
 
+    const addNewMessage = (values: AddMessageFormValuesType) => {
+        alert(values.newMessageText);
+        console.log(typeof values);
+    }
+
     return (
         <div className={classes.dialogs}>
             <div className={classes.dialogItems}>
@@ -46,16 +52,35 @@ export const Dialogs = (props: DialogsPropsType) => {
             <div className={classes.messages}>
                 {messageElement}
             </div>
-            <div>
-                <div>
-                    <textarea ref={newMessageElement} onChange={onNewMessageChange}
-                              value={state.newMessageText}
-                              placeholder={'Enter a message...'}/>
-                </div>
-                <div>
-                    <button onClick={addMessageHandler}>Add Message</button>
-                </div>
-            </div>
+
+
+            <AddMessageFormRedux onSubmit={addNewMessage}/>
         </div>
     );
 };
+
+
+// Интерфейс для значений формы
+interface AddMessageFormValuesType {
+    newMessageText: string;
+}
+
+// Типизация пропсов для AddMessageForm
+type AddMessageFormPropsType = InjectedFormProps<AddMessageFormValuesType>;
+
+const AddMessageForm = (props: AddMessageFormPropsType) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <Field component={'textarea'} name={'newMessageText'} placeholder={'Enter a message...'}/>
+            </div>
+
+            <div>
+                <button>Add Message</button>
+            </div>
+
+        </form>
+    )
+}
+
+const AddMessageFormRedux = reduxForm<AddMessageFormValuesType>({form: 'addMessageForm'})(AddMessageForm);
