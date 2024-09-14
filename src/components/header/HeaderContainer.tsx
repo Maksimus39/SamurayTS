@@ -8,13 +8,6 @@ class HeaderContainer extends React.Component<any, MapStateToPropsType> {
 
     componentDidMount() {
         this.props.setAuthThunkCreator()
-
-        // usersApi.getAuthUserData().then(data => {
-        //     if (data.resultCode === 0) {
-        //         let {id, login, email} = data.data;
-        //         this.props.setAuthUserData(id, login, email);
-        //     }
-        // })
     }
 
     render() {
