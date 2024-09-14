@@ -1,10 +1,10 @@
 import {
     AddPostActionType,
     SetStatusActionType,
-    SetUserProfileActionType,
-    UpdateNewPostTextActionType
+    SetUserProfileActionType
+
 } from "./reducer/profilePageReducer";
-import {AddNewMessageTextActionType, UpdateNewMessageTextActionType} from "./reducer/dialogsPageReducer";
+import {AddNewMessageTextActionType} from "./reducer/dialogsPageReducer";
 import {
     FollowActionType,
 
@@ -17,14 +17,12 @@ import {SetUserDataActionType} from "./reducer/authPageReducer";
 
 export type ProfilePageType = {
     posts: PostDataType[]
-    newPostText: string
     profile: null
     status: string
 }
 export type DialogsPageType = {
     dialogs: DialogDataType[]
     messages: MessagesDataType[]
-    newMessageText: string
 }
 export type SidebarPageType = {
     friends: FriendsDataType[]
@@ -81,9 +79,7 @@ export type SetUserDataType = {
 
 export type DispatchType =
     AddPostActionType
-    | UpdateNewPostTextActionType
     | AddNewMessageTextActionType
-    | UpdateNewMessageTextActionType
     | FollowActionType
     | UnfollowActionType
     | SetUsersActionType
