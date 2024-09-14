@@ -4,21 +4,12 @@ export type AddNewMessageTextActionType = {
     type: 'ADD-NEW-MESSAGE-TEXT'
     newMessageText: string
 }
-export type UpdateNewMessageTextActionType = {
-    type: 'UPDATE-NEW-MESSAGE-TEXT'
-    newMessage: string
-}
+
 
 export const addNewMessageTextActionCreator = (newMessageText: string): AddNewMessageTextActionType => {
     return {
         type: 'ADD-NEW-MESSAGE-TEXT',
         newMessageText: newMessageText
-    } as const
-}
-export const updateNewMessageTextActionCreator = (newMessage: string): UpdateNewMessageTextActionType => {
-    return {
-        type: 'UPDATE-NEW-MESSAGE-TEXT',
-        newMessage: newMessage
     } as const
 }
 
@@ -51,7 +42,6 @@ let initialState: DialogsPageType = {
         {id: new Date().getTime(), message: 'Мам, можно я пойду погуляю с друзьями?'},
         {id: new Date().getTime(), message: 'Пап, помоги мне с домашним заданием по математике.'},
     ],
-    newMessageText: ''
 }
 
 export const dialogsPageReducer = (state: DialogsPageType = initialState, action: DispatchType) => {
@@ -59,17 +49,11 @@ export const dialogsPageReducer = (state: DialogsPageType = initialState, action
         case 'ADD-NEW-MESSAGE-TEXT':
             let newMessage: MessagesDataType = {
                 id: new Date().getTime(),
-                message: state.newMessageText,
+                message:action.newMessageText
             }
             return {
                 ...state,
                 messages: [...state.messages, newMessage],
-                newMessageText: ''
-            }
-        case 'UPDATE-NEW-MESSAGE-TEXT':
-            return {
-                ...state,
-                newMessageText: action.newMessage
             }
         default:
             return state
