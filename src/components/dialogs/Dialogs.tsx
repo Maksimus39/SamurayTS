@@ -22,26 +22,9 @@ export const Dialogs = (props: DialogsPropsType) => {
         )
     });
 
-    const newMessageElement = useRef<HTMLTextAreaElement>(null);
-
-    const addMessageHandler = () => {
-        if (newMessageElement.current) {
-            const message = newMessageElement.current.value;
-            props.sendMessage(message);
-            newMessageElement.current.value = ''; // Clear the textarea after sending the message
-        }
-    }
-
-    const onNewMessageChange = () => {
-        if (newMessageElement.current) {
-            const message = newMessageElement.current.value;
-            props.updateNewMessageBody(message);
-        }
-    }
-
     const addNewMessage = (values: AddMessageFormValuesType) => {
-        alert(values.newMessageText);
-        console.log(typeof values);
+        props.sendMessage(values.newMessageText)
+
     }
 
     return (
@@ -52,7 +35,6 @@ export const Dialogs = (props: DialogsPropsType) => {
             <div className={classes.messages}>
                 {messageElement}
             </div>
-
 
             <AddMessageFormRedux onSubmit={addNewMessage}/>
         </div>
