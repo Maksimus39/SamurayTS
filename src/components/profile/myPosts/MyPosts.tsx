@@ -1,8 +1,10 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import classes from "./MyPosts.module.css"
 import {Post} from "./posts/Post";
 import {MyPostType} from "./MyPostsContainer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {maxLengthCreator, required} from "../../utils/validators/validators";
+import {Textarea} from "../../common/formsControls/FormsControls";
 
 
 export const MyPosts = (props: MyPostType) => {
@@ -13,40 +15,15 @@ export const MyPosts = (props: MyPostType) => {
         )
     })
 
-    const newPostElement = useRef<HTMLTextAreaElement>(null);
 
     const onAddPost = (values: OnnAddPostValuesType) => {
-        // if (newPostElement.current) {
-        //     const text = newPostElement.current.value;
-        //     props.addPost(text)
-        // }
         props.addPost(values.newPostText)
     };
 
-    // const onPostChange = () => {
-    //     if (newPostElement.current) {
-    //         const text = newPostElement.current.value;
-    //         if (text.trim() !== "") {
-    //             props.updateNewPostText(text)
-    //         }
-    //     }
-    // }
 
     return (
         <div className={classes.postsBlock}>
             <h3>My Posts</h3>
-            {/*<form>*/}
-            {/*    <div>*/}
-            {/*        <textarea ref={newPostElement}*/}
-            {/*                  onChange={onPostChange}*/}
-            {/*                  value={props.newPostText}*/}
-            {/*                  placeholder={'Enter Your Post'}*/}
-            {/*        />*/}
-            {/*    </div>*/}
-            {/*    <div>*/}
-            {/*        <button onClick={onAddPost}>Add Post</button>*/}
-            {/*    </div>*/}
-            {/*</form>*/}
 
             <AddNewPostFormRedux onSubmit={onAddPost}/>
 
@@ -63,7 +40,11 @@ export const MyPosts = (props: MyPostType) => {
 interface OnnAddPostValuesType {
     newPostText: string;
 }
-type AddNewPostFormProps =InjectedFormProps<OnnAddPostValuesType>;
+
+type AddNewPostFormProps = InjectedFormProps<OnnAddPostValuesType>;
+
+
+const maxLength10 = maxLengthCreator(10)
 
 const AddNewPostForm = (props: AddNewPostFormProps) => {
     return (
@@ -71,8 +52,10 @@ const AddNewPostForm = (props: AddNewPostFormProps) => {
 
             <div>
                 <Field name={'newPostText'}
-                       component={'textarea'}
-                       placeholder={'Enter a message...'}/>
+                       component={Textarea}
+                       placeholder={'Enter a message...'}
+                       validate={[required, maxLength10]}
+                />
             </div>
 
             <div>
