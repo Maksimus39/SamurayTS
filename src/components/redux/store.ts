@@ -7,7 +7,6 @@ import {
 import {AddNewMessageTextActionType} from "./reducer/dialogsPageReducer";
 import {
     FollowActionType,
-
     SetCurrentPageActionType, SetUsersActionType,
     SetUsersTotalCountActionType, ToggleIsFetchingActionType, ToggleIsFollowingProgressActionType,
     UnfollowActionType
@@ -90,5 +89,6 @@ export type DispatchType =
     | SetUserDataActionType
     | ToggleIsFollowingProgressActionType
     | SetStatusActionType
+
 
 
