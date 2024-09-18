@@ -54,7 +54,6 @@ export const profileThunkCreator = (userId: number) => {
 export const getStatus = (userId: number) => {
     return (dispatch: Dispatch<ProfileThunkCreatorType>) => {
         usersApi.getStatus(userId).then(response => {
-            //debugger
             dispatch(setStatus(response))
         })
     }
