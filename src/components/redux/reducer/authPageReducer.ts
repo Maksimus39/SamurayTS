@@ -5,36 +5,62 @@ import {usersApi} from "../../api/api";
 // ActionType
 export type SetUserDataActionType = {
     type: 'SET-USER-DATA'
-    data: {
+    payload: {
         userId: null,
         login: null,
-        email: null
+        email: null,
+        isAuth: boolean,
     }
 }
 
 // AC
-export const setAuthUserData = (id: null, login: null, email: null): SetUserDataActionType => {
+export const setAuthUserData = (id: null, login: null, email: null, isAuth: boolean,): SetUserDataActionType => {
     return {
         type: 'SET-USER-DATA',
-        data: {
+        payload: {
             userId: id,
             login: login,
-            email: email
+            email: email,
+            isAuth: isAuth
         }
     } as const
 }
 // Thunk creator type
-type AuthThunkCreatorType = SetUserDataActionType
+ type ThunkCreatorType = SetUserDataActionType
+
 
 // Thunk creator
 export const setAuthThunkCreator = () => {
-    return (dispatch: Dispatch<AuthThunkCreatorType>) => {
+    return (dispatch: Dispatch<ThunkCreatorType>) => {
         usersApi.getAuthUserData().then(data => {
             if (data.resultCode === 0) {
                 let {id, login, email} = data.data;
-                dispatch(setAuthUserData(id, login, email));
+                dispatch(setAuthUserData(id, login, email, true));
             }
         });
+    };
+};
+
+export const login = (email: string, password: string, rememberMe: boolean) => {
+    return (dispatch: Dispatch<any>) => {
+        usersApi.login(email, password, rememberMe)
+            .then(response => {
+                console.log(response)
+                if (response.resultCode === 0) {
+                    dispatch(setAuthThunkCreator())
+                }
+            })
+    };
+};
+
+export const logout = () => {
+    return (dispatch: Dispatch<ThunkCreatorType>) => {
+        usersApi.logout()
+            .then(response => {
+                if (response.resultCode === 0) {
+                    dispatch(setAuthUserData(null, null, null, false));
+                }
+            })
     };
 };
 
@@ -50,9 +76,10 @@ export const authReducer = (state: SetUserDataType = initialState, action: Dispa
     switch (action.type) {
         case "SET-USER-DATA":
             return {
-                ...state, ...action.data, isAuth: true
+                ...state, ...action.payload
             }
         default:
             return state
     }
 }
+
