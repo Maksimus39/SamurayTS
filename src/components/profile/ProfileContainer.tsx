@@ -12,6 +12,8 @@ import {AppRootStateType} from "../redux/redux-store";
 export type MapStateToProps = {
     profile: ProfilePageType["profile"] | UsersDataType | null;
     status: string
+    authorizedUserId: null
+    isAuth: boolean
 }
 export type MapDispatchToProps = {
     updateNewPostText: (text: string) => void
@@ -28,7 +30,7 @@ class ProfileContainer extends React.Component<any, DialogsUsersPropsType> {
 
         let userId = this.props.match.params.userId;
         if (!userId) {
-            userId = 31374
+            userId = this.props.authorizedUserId
         }
         this.props.profileThunkCreator(userId)
 
@@ -52,7 +54,9 @@ class ProfileContainer extends React.Component<any, DialogsUsersPropsType> {
 
 let mapStateToProps = (state: AppRootStateType): MapStateToProps => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    authorizedUserId: state.auth.userId,
+    isAuth: state.auth.isAuth
 });
 
 export default compose<React.ComponentType>(
