@@ -5,8 +5,8 @@ let initialState = {
     friends: [
         {
             id: 1,
-            img: "https://sun1-86.userapi.com/impf/0YLRJxZct6LI-KM2eb_bhfXuttxrdsEMgu66JQ/05T7suIhTZ4.jpg?size=273x282&quality=96&sign=ef0db73ec19d4c13a9dded0864b3bed6&type=album",
-            name: "Serega"
+            img: "https://sun9-18.userapi.com/impf/c845522/v845522760/1bc497/CX5zJ848cAs.jpg?size=1280x1280&quality=96&sign=17719516ae85aabfd32c3dcd5bf47c38&type=album",
+            name: "Natali"
         },
         {
             id: 2,
