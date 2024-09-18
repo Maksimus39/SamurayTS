@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 import {login} from "../redux/reducer/authPageReducer";
 import {Redirect} from "react-router-dom";
 import {AppRootStateType} from "../redux/redux-store";
+import styles from './../common/formsControls/FormsControls.module.css'
 
 // Интерфейс для данных формы
 type LoginFormData = {
@@ -40,6 +41,9 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
                        name={'remember me'}
                        type={"checkbox"}/> remember me
             </div>
+
+            {props.error && <div className={styles.formSummaryError}>{props.error}</div>}
+
             <div>
                 <button>Login</button>
             </div>
@@ -50,11 +54,9 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
 const LoginReduxForm = reduxForm<LoginFormData, {}>({form: 'login'})(LoginForm);
 
 
-
-
 type LoginProps = {
     login: (email: string, password: string, rememberMe: boolean) => void
-    isAuth:boolean
+    isAuth: boolean
 }
 
 const Login = (props: LoginProps) => {
