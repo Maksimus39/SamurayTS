@@ -9,7 +9,9 @@ import ProfileContainer from "./components/profile/ProfileContainer";
 import HeaderContainer from "./components/header/HeaderContainer";
 import UsersContainer from "./components/users/UsersContainer";
 import DialogsContainer from "./components/dialogs/DialogsContainer";
-import {Login} from "./components/login/LoginForm";
+import Login from "./components/login/LoginForm";
+
+
 
 function App() {
     return (
