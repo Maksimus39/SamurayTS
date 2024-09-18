@@ -1,6 +1,7 @@
 import {DispatchType, SetUserDataType} from "../store";
 import {Dispatch} from "redux";
 import {usersApi} from "../../api/api";
+import {stopSubmit} from "redux-form";
 
 // ActionType
 export type SetUserDataActionType = {
@@ -26,7 +27,7 @@ export const setAuthUserData = (id: null, login: null, email: null, isAuth: bool
     } as const
 }
 // Thunk creator type
- type ThunkCreatorType = SetUserDataActionType
+type ThunkCreatorType = SetUserDataActionType
 
 
 // Thunk creator
@@ -45,9 +46,12 @@ export const login = (email: string, password: string, rememberMe: boolean) => {
     return (dispatch: Dispatch<any>) => {
         usersApi.login(email, password, rememberMe)
             .then(response => {
-                console.log(response)
                 if (response.resultCode === 0) {
                     dispatch(setAuthThunkCreator())
+                } else {
+
+                    let message = response.messages.length > 0 ? response.messages[0] : 'Some error'
+                    dispatch(stopSubmit('login', {_error: message}))
                 }
             })
     };
