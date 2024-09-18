@@ -12,7 +12,6 @@ type UsersProps = {
     users: UsersDataType[]
     unfollow: (userId: number) => void
     follow: (userId: number) => void
-    // toggleIsFollowingProgress: (followingInProgress: boolean) => void
     followingInProgress: boolean
 }
 
@@ -24,7 +23,6 @@ export const Users = ({
                           users,
                           unfollow,
                           follow,
-                          // toggleIsFollowingProgress,
                           followingInProgress,
                       }: UsersProps) => {
 
@@ -64,27 +62,12 @@ export const Users = ({
                                           onClick={() => {
                                               unfollow(us.id)
                                           }}>Unfollow</button>
-                                // toggleIsFollowingProgress(true)
-                                // usersApi.unfollowUser(us.id).then(data => {
-                                //     if (data.resultCode === 0) {
-                                //         unfollow(us.id)
-                                //     }
-                                //     toggleIsFollowingProgress(false)
-                                // })
 
                                 : <button disabled={followingInProgress}
                                           className={styles.button}
                                           onClick={() => {
                                               follow(us.id)
                                           }}>Follow</button>
-
-                                // toggleIsFollowingProgress(true)
-                                // usersApi.followUser(us.id).then(data => {
-                                //     if (data.resultCode === 0) {
-                                //         follow(us.id)
-                                //     }
-                                //     toggleIsFollowingProgress(false)
-                                // })
                             }
                         </div>
                     </span>
