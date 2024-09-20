@@ -12,18 +12,22 @@ import DialogsContainer from "./components/dialogs/DialogsContainer";
 import Login from "./components/login/LoginForm";
 import {connect} from "react-redux";
 import {compose} from "redux";
-import {setAuthThunkCreator} from "./components/redux/reducer/authPageReducer";
 import {AppRootStateType} from "./components/redux/redux-store";
+import {initializeApp} from "./components/redux/reducer/appPageReducer";
+import {Preloader} from "./components/common/preloader/Preloader";
 
 
 class App extends Component <any, AppRootStateType> {
 
     componentDidMount() {
-        this.props.setAuthThunkCreator()
+        this.props.initializeApp()
     }
 
-
     render() {
+        if (!this.props.Initialized) {
+            return <Preloader/>
+        }
+
         return (
             <div className={'app-wrapper'}>
                 <HeaderContainer/>
@@ -44,6 +48,14 @@ class App extends Component <any, AppRootStateType> {
     }
 }
 
+type MapStateToPropsType = {
+    Initialized: boolean
+}
+const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => ({
+    Initialized: state.app.Initialized
+})
+
+
 export default compose<React.ComponentType>(
     withRouter,
-    connect(null, {setAuthThunkCreator}))(App)
+    connect(mapStateToProps, {initializeApp}))(App)
