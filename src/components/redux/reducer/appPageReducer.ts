@@ -1,89 +1,44 @@
-import {DispatchType, SetUserDataType} from "../store";
+import {DispatchType, InitialDataType} from "../store";
 import {Dispatch} from "redux";
-import {usersApi} from "../../api/api";
-import {stopSubmit} from "redux-form";
+import {setAuthThunkCreator} from "./authPageReducer";
 
 // ActionType
-export type SetUserDataActionType = {
-    type: 'SET-USER-DATA'
-    payload: {
-        userId: null,
-        login: null,
-        email: null,
-        isAuth: boolean,
-    }
+export type InitializingSuccessDataActionType = {
+    type: 'INITIALIZING-SUCCESS'
 }
 
 // AC
-export const setAuthUserData = (id: null, login: null, email: null, isAuth: boolean,): SetUserDataActionType => {
+export const initializedSuccess = (): InitializingSuccessDataActionType => {
     return {
-        type: 'SET-USER-DATA',
-        payload: {
-            userId: id,
-            login: login,
-            email: email,
-            isAuth: isAuth
-        }
-    } as const
+        type: 'INITIALIZING-SUCCESS',
+    }
 }
+
+
 // Thunk creator type
-type ThunkCreatorType = SetUserDataActionType
-
-
-// Thunk creator
-export const setAuthThunkCreator = () => {
-    return (dispatch: Dispatch<ThunkCreatorType>) => {
-        usersApi.getAuthUserData().then(data => {
-            if (data.resultCode === 0) {
-                let {id, login, email} = data.data;
-                dispatch(setAuthUserData(id, login, email, true));
-            }
-        });
-    };
-};
-
-export const login = (email: string, password: string, rememberMe: boolean) => {
-    return (dispatch: Dispatch<any>) => {
-        usersApi.login(email, password, rememberMe)
-            .then(response => {
-                if (response.resultCode === 0) {
-                    dispatch(setAuthThunkCreator())
-                } else {
-
-                    let message = response.messages.length > 0 ? response.messages[0] : 'Some error'
-                    dispatch(stopSubmit('login', {_error: message}))
-                }
-            })
-    };
-};
-
-export const logout = () => {
-    return (dispatch: Dispatch<ThunkCreatorType>) => {
-        usersApi.logout()
-            .then(response => {
-                if (response.resultCode === 0) {
-                    dispatch(setAuthUserData(null, null, null, false));
-                }
-            })
-    };
-};
-
-
-const initialState: SetUserDataType = {
-    userId: null,
-    login: null,
-    email: null,
-    isAuth: false,
+export const initializeApp = () => (dispatch: Dispatch<any>) => {
+    let promise = dispatch(setAuthThunkCreator())
+    Promise.all([promise])
+        .then(() => {
+        dispatch(initializedSuccess())
+    })
 }
 
-export const appReducer = (state: SetUserDataType = initialState, action: DispatchType): SetUserDataType => {
+
+export const initialState: InitialDataType = {
+    Initialized: false,
+}
+
+const appReducer = (state: InitialDataType = initialState, action: DispatchType): InitialDataType => {
     switch (action.type) {
-        case "SET-USER-DATA":
+        case 'INITIALIZING-SUCCESS':
             return {
-                ...state, ...action.payload
+                ...state, Initialized: true
             }
         default:
             return state
     }
 }
+
+export default appReducer;
 
