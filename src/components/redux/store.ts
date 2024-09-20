@@ -13,6 +13,7 @@ import {
     UnfollowActionType
 } from "./reducer/usersPageReducer";
 import {SetUserDataActionType} from "./reducer/authPageReducer";
+import {InitializingSuccessDataActionType} from "./reducer/appPageReducer";
 
 
 export type ProfilePageType = {
@@ -76,7 +77,9 @@ export type SetUserDataType = {
     email: null,
     isAuth: boolean
 }
-
+export type InitialDataType = {
+    Initialized: boolean,
+}
 export type DispatchType =
     AddPostActionType
     | AddNewMessageTextActionType
@@ -90,5 +93,7 @@ export type DispatchType =
     | SetUserDataActionType
     | ToggleIsFollowingProgressActionType
     | SetStatusActionType
+    | InitializingSuccessDataActionType
+
 
 
