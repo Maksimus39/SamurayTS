@@ -31,16 +31,16 @@ type ThunkCreatorType = SetUserDataActionType
 
 
 // Thunk creator
-export const setAuthThunkCreator = () => {
-    return (dispatch: Dispatch<ThunkCreatorType>) => {
-        usersApi.getAuthUserData().then(data => {
-            if (data.resultCode === 0) {
-                let {id, login, email} = data.data;
-                dispatch(setAuthUserData(id, login, email, true));
-            }
-        });
-    };
+export const setAuthThunkCreator = () => (dispatch: Dispatch<ThunkCreatorType>) => {
+    return usersApi.getAuthUserData()
+        .then(data => {
+        if (data.resultCode === 0) {
+            let {id, login, email} = data.data;
+            dispatch(setAuthUserData(id, login, email, true));
+        }
+    });
 };
+
 
 export const login = (email: string, password: string, rememberMe: boolean) => {
     return (dispatch: Dispatch<any>) => {
