@@ -14,7 +14,6 @@ import {
     unfollow
 } from "../redux/reducer/usersPageReducer";
 import {Users} from "./Users";
-import {withAuthRedirect} from "../hoc/WithAuthRedirect";
 import {compose} from "redux";
 
 export type MapStateToProps = {
@@ -76,7 +75,6 @@ let mapStateToProps = (state: AppRootStateType): MapStateToProps => {
 }
 
 export default compose<React.ComponentType>(
-    withAuthRedirect,
     connect(mapStateToProps, {
         follow,
         unfollow,
