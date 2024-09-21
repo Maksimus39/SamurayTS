@@ -20,8 +20,8 @@ export const initializeApp = () => (dispatch: Dispatch<any>) => {
     let promise = dispatch(setAuthThunkCreator())
     Promise.all([promise])
         .then(() => {
-        dispatch(initializedSuccess())
-    })
+            dispatch(initializedSuccess())
+        })
 }
 
 
