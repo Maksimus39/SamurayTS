@@ -7,6 +7,12 @@ import {withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../hoc/WithAuthRedirect";
 import {compose} from "redux";
 import {AppRootStateType} from "../redux/redux-store";
+import {
+    getAuthorizedUserIdSelector,
+    getIsAuthSelector,
+    getProfileSelector,
+    getStatusSelector
+} from "../redux/functionSelector/profileContainerSelector";
 
 
 export type MapStateToProps = {
@@ -31,8 +37,8 @@ class ProfileContainer extends React.Component<any, DialogsUsersPropsType> {
         let userId = this.props.match.params.userId;
         if (!userId) {
             userId = this.props.authorizedUserId
-            if(!userId){
-             this.props.history.push('/login')
+            if (!userId) {
+                this.props.history.push('/login')
             }
         }
         this.props.profileThunkCreator(userId)
@@ -56,10 +62,10 @@ class ProfileContainer extends React.Component<any, DialogsUsersPropsType> {
 }
 
 let mapStateToProps = (state: AppRootStateType): MapStateToProps => ({
-    profile: state.profilePage.profile,
-    status: state.profilePage.status,
-    authorizedUserId: state.auth.userId,
-    isAuth: state.auth.isAuth
+    profile: getProfileSelector(state),
+    status: getStatusSelector(state),
+    authorizedUserId: getAuthorizedUserIdSelector(state),
+    isAuth: getIsAuthSelector(state)
 });
 
 export default compose<React.ComponentType>(

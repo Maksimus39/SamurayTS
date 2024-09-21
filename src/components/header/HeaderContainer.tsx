@@ -3,12 +3,10 @@ import {Header} from "./Header";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../redux/redux-store";
 import {logout, setAuthUserData} from "../redux/reducer/authPageReducer";
+import {getEmailSelector, getIsAuthSelector, getLoginSelector} from "../redux/functionSelector/headerContainerSelector";
 
 class HeaderContainer extends React.Component<any, MapStateToPropsType> {
 
-    // componentDidMount() {
-    //     this.props.setAuthThunkCreator()
-    // }
 
     render() {
 
@@ -31,15 +29,14 @@ export type MapStateToPropsType = {
 
 const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     return {
-        isAuth: state.auth.isAuth,
-        email: state.auth.email,
-        login: state.auth.login,
+        isAuth: getIsAuthSelector(state),
+        email: getEmailSelector(state),
+        login: getLoginSelector(state),
     };
 };
 
 
 export default connect(mapStateToProps, {
     setAuthUserData,
-    // setAuthThunkCreator,
     logout
 })(HeaderContainer);

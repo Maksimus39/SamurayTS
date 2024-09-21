@@ -15,6 +15,13 @@ import {
 } from "../redux/reducer/usersPageReducer";
 import {Users} from "./Users";
 import {compose} from "redux";
+import {
+    getCurrentPageSelector,
+    getFollowingIsProgressSelector,
+    getIsFetchingSelector, getPageSizeSelector,
+    getTotalUsersCountSelector,
+    getUsersSelector
+} from "../redux/functionSelector/appPageUsersSelector";
 
 export type MapStateToProps = {
     users: UsersDataType[]
@@ -63,14 +70,15 @@ class UsersContainer extends React.Component<DialogsUsersPropsType, MapStateToPr
     }
 }
 
-let mapStateToProps = (state: AppRootStateType): MapStateToProps => {
+
+const mapStateToProps = (state: AppRootStateType): MapStateToProps => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress,
+        users: getUsersSelector(state),
+        pageSize: getPageSizeSelector(state),
+        totalUsersCount: getTotalUsersCountSelector(state),
+        currentPage: getCurrentPageSelector(state),
+        isFetching: getIsFetchingSelector(state),
+        followingInProgress: getFollowingIsProgressSelector(state),
     }
 }
 

@@ -7,6 +7,7 @@ import {login} from "../redux/reducer/authPageReducer";
 import {Redirect} from "react-router-dom";
 import {AppRootStateType} from "../redux/redux-store";
 import styles from './../common/formsControls/FormsControls.module.css'
+import {getIsAuthSelector} from "../redux/functionSelector/headerContainerSelector";
 
 // Интерфейс для данных формы
 type LoginFormData = {
@@ -78,5 +79,5 @@ const Login = (props: LoginProps) => {
 export type MapStateToPropsType = {
     isAuth: boolean
 }
-const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => ({isAuth: state.auth.isAuth})
+const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => ({isAuth: getIsAuthSelector(state)})
 export default connect(mapStateToProps, {login})(Login)

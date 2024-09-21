@@ -3,6 +3,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/redux-store";
 import {FriendsDataType} from "../../redux/store";
+import {getFriendsSelector} from "../../redux/functionSelector/navbarFriendsSelector";
 
 
 type NavbarFriendsProps = {
@@ -31,7 +32,7 @@ const NavbarFriendsComponent: React.FC<NavbarFriendsProps> = ({friends}) => {
 
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     return {
-        friends: state.sidebarPage.friends
+        friends: getFriendsSelector(state)
     }
 }
 

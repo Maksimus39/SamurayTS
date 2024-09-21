@@ -3,6 +3,7 @@ import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/redux-store";
 import {PostDataType} from "../../redux/store";
+import {getPostsSelector} from "../../redux/functionSelector/myPostContainerSelector";
 
 export type MapStatePropsType = {
     posts: PostDataType[]
@@ -15,7 +16,7 @@ export type MyPostType = MapStatePropsType & MapDispatchToPropsType
 
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     return {
-        posts: state.profilePage.posts,
+        posts: getPostsSelector(state),
     }
 }
 
