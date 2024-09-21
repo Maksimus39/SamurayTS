@@ -72,12 +72,12 @@ type getUserThunkCreatorType = FollowActionType
     | ToggleIsFollowingProgressActionType
 
 // Thunk creator
-export const getUserThunkCreator = (currentPage: number, pageSize: number) => {
+export const getUserThunkCreator = (page: number, pageSize: number) => {
     return (dispatch: Dispatch<getUserThunkCreatorType>) => {
         dispatch(toggleIsFetching(true))
-
+        dispatch(setCurrentPage(page))
         usersApi.getUsers({
-            currentPage: currentPage,
+            currentPage: page,
             pageSize: pageSize
         }).then(data => {
             dispatch(toggleIsFetching(false));
