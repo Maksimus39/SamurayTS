@@ -15,6 +15,7 @@ import {compose} from "redux";
 import {AppRootStateType} from "./components/redux/redux-store";
 import {initializeApp} from "./components/redux/reducer/appPageReducer";
 import {Preloader} from "./components/common/preloader/Preloader";
+import {getInitializedSelector} from "./components/redux/functionSelector/initializedSelector";
 
 
 class App extends Component <any, AppRootStateType> {
@@ -52,7 +53,7 @@ type MapStateToPropsType = {
     Initialized: boolean
 }
 const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => ({
-    Initialized: state.app.Initialized
+    Initialized: getInitializedSelector(state)
 })
 
 
