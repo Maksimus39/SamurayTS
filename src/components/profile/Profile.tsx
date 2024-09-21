@@ -32,11 +32,9 @@ type ProfileProps = {
     updateStatus: string
 }
 export const Profile = (props: ProfileProps) => {
-    console.log(props.status)
-    console.log(props.updateStatus)
     return (
         <div>
-            <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus} />
+            <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
             <MyPostsContainer/>
         </div>
     )

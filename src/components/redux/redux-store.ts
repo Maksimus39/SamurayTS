@@ -9,7 +9,6 @@ import {reducer as formReducer} from "redux-form";
 import appReducer from "./reducer/appPageReducer";
 
 
-
 let reducer = combineReducers({
     profilePage: profilePageReducer,
     dialogsPage: dialogsPageReducer,

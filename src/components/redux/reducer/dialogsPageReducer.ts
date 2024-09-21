@@ -49,7 +49,7 @@ export const dialogsPageReducer = (state: DialogsPageType = initialState, action
         case 'ADD-NEW-MESSAGE-TEXT':
             let newMessage: MessagesDataType = {
                 id: new Date().getTime(),
-                message:action.newMessageText
+                message: action.newMessageText
             }
             return {
                 ...state,

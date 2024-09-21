@@ -1,5 +1,5 @@
 import React from 'react';
-import { WrappedFieldInputProps, WrappedFieldMetaProps } from "redux-form/lib/Field";
+import {WrappedFieldInputProps, WrappedFieldMetaProps} from "redux-form/lib/Field";
 import classes from './FormsControls.module.css';
 
 type FormControlPropsType = {
@@ -8,22 +8,20 @@ type FormControlPropsType = {
     children: React.ReactNode;
 };
 
-const FormControl: React.FC<FormControlPropsType> = ({ input, meta, children }) => {
+const FormControl: React.FC<FormControlPropsType> = ({input, meta, children}) => {
     const hasError = meta.touched && meta.error;
 
     return (
         <div className={`${classes.formControl} ${hasError ? classes.error : ''}`}>
             <div>
                 {React.Children.map(children, child =>
-                    React.isValidElement(child) ? React.cloneElement(child, { ...input, ...meta }) : child
+                    React.isValidElement(child) ? React.cloneElement(child, {...input, ...meta}) : child
                 )}
             </div>
             {hasError && <span>{meta.error}</span>}
         </div>
     );
 };
-
-
 
 
 type TextareaPropsType = {
