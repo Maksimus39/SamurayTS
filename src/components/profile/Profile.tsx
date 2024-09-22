@@ -29,7 +29,7 @@ export type ProfileType = {
 type ProfileProps = {
     profile: ProfileType
     status: string
-    updateStatus: string
+    updateStatus: (status: string) => void;
 }
 export const Profile = (props: ProfileProps) => {
     return (
