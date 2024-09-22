@@ -18,9 +18,8 @@ import {compose} from "redux";
 import {
     getCurrentPageSelector,
     getFollowingIsProgressSelector,
-    getIsFetchingSelector, getPageSizeSelector,
-    getTotalUsersCountSelector,
-    getUsersSelector
+    getIsFetchingSelector, getPage, getTotalUsersCount,
+    getUsers,
 } from "../redux/functionSelector/appPageUsersSelector";
 
 export type MapStateToProps = {
@@ -73,9 +72,9 @@ class UsersContainer extends React.Component<DialogsUsersPropsType, MapStateToPr
 
 const mapStateToProps = (state: AppRootStateType): MapStateToProps => {
     return {
-        users: getUsersSelector(state),
-        pageSize: getPageSizeSelector(state),
-        totalUsersCount: getTotalUsersCountSelector(state),
+        users: getUsers(state),
+        pageSize: getPage(state),
+        totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPageSelector(state),
         isFetching: getIsFetchingSelector(state),
         followingInProgress: getFollowingIsProgressSelector(state),
