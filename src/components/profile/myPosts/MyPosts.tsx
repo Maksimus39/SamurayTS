@@ -7,8 +7,8 @@ import {maxLengthCreator, required} from "../../utils/validators/validators";
 import {Textarea} from "../../common/formsControls/FormsControls";
 
 
-export const MyPosts = (props: MyPostType) => {
-
+export const MyPosts = React.memo((props: MyPostType) => {
+    console.log('RENDER YO')
     let postDataElement = props.posts.map((p) => {
         return (
             <Post key={p.id} message={p.message} likesCount={p.likesCount}/>
@@ -33,7 +33,7 @@ export const MyPosts = (props: MyPostType) => {
             </div>
         </div>
     );
-};
+});
 
 
 // Интерфейс для значений формы
