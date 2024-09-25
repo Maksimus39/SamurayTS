@@ -15,6 +15,10 @@ export type SetStatusActionType = {
     type: 'SET-STATUS'
     status: string
 }
+export type DeletePostActionType = {
+    type: 'DELETE-POST'
+    postId: number
+}
 
 
 // Action creator
@@ -36,7 +40,12 @@ export const setStatus = (status: string): SetStatusActionType => {
         status: status
     } as const
 }
-
+export const deletePost = (postId: number): DeletePostActionType => {
+    return {
+        type: 'DELETE-POST',
+        postId: postId
+    } as const
+}
 
 // Thunk creator type
 type ProfileThunkCreatorType = AddPostActionType
@@ -97,6 +106,10 @@ export const profilePageReducer = (state: ProfilePageType = initialState, action
         case "SET-STATUS":
             return {
                 ...state, status: action.status
+            }
+        case "DELETE-POST":
+            return {
+                ...state, posts: state.posts.filter(el => el.id !== action.postId)
             }
         default:
             return state
