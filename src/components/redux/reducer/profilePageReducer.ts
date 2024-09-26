@@ -54,26 +54,24 @@ type ProfileThunkCreatorType = AddPostActionType
 
 // Thunk creator
 export const profileThunkCreator = (userId: number) => {
-    return (dispatch: Dispatch<ProfileThunkCreatorType>) => {
-        usersApi.getProfile(userId).then(data => {
-            dispatch(setUserProfile(data))
-        })
+    return async (dispatch: Dispatch<ProfileThunkCreatorType>) => {
+        const data = await usersApi.getProfile(userId);
+        dispatch(setUserProfile(data))
     }
 }
 export const getStatus = (userId: number) => {
-    return (dispatch: Dispatch<ProfileThunkCreatorType>) => {
-        usersApi.getStatus(userId).then(response => {
-            dispatch(setStatus(response))
-        })
+    return async (dispatch: Dispatch<ProfileThunkCreatorType>) => {
+        const response = await usersApi.getStatus(userId)
+        dispatch(setStatus(response))
     }
 }
 export const updateStatus = (status: string) => {
-    return (dispatch: Dispatch<ProfileThunkCreatorType>) => {
-        usersApi.updateStatus(status).then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setStatus(status))
-            }
-        })
+    return async (dispatch: Dispatch<ProfileThunkCreatorType>) => {
+        const response = await usersApi.updateStatus(status)
+        if (response.data.resultCode === 0) {
+            dispatch(setStatus(status))
+
+        }
     }
 }
 
