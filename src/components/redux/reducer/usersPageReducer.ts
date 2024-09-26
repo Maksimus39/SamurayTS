@@ -2,6 +2,7 @@ import {DispatchType, UsersDataType, UsersPageType} from "../store";
 import {usersApi} from "../../api/api";
 import {Dispatch} from "redux";
 
+
 // Action type
 export type FollowActionType = {
     type: 'FOLLOW'
@@ -73,41 +74,62 @@ type getUserThunkCreatorType = FollowActionType
 
 // Thunk creator
 export const getUserThunkCreator = (page: number, pageSize: number) => {
-    return (dispatch: Dispatch<getUserThunkCreatorType>) => {
+    return async (dispatch: Dispatch<getUserThunkCreatorType>) => {
         dispatch(toggleIsFetching(true))
         dispatch(setCurrentPage(page))
-        usersApi.getUsers({
+        const data = await usersApi.getUsers({
             currentPage: page,
             pageSize: pageSize
-        }).then(data => {
-            dispatch(toggleIsFetching(false));
-            dispatch(setUsers(data.items));
-            dispatch(setUsersTotalCount(data.totalCount));
-        });
+        })
+        dispatch(toggleIsFetching(false));
+        dispatch(setUsers(data.items));
+        dispatch(setUsersTotalCount(data.totalCount));
     }
 }
+
+
+// Тип для данных, возвращаемых API методами
+type ApiResponse = {
+    resultCode: number;
+    // Другие поля, если есть
+};
+
+// Тип для API метода
+type ApiMethod = (userId: number) => Promise<ApiResponse>;
+
+// Тип для action creator
+type ActionCreator = (userId: number) => FollowActionType | UnfollowActionType;
+
+
+const followUnfollowFlow = async (
+    dispatch: Dispatch<getUserThunkCreatorType>,
+    userId: number,
+    apiMethod: ApiMethod,
+    actionCreator: ActionCreator
+) => {
+    dispatch(toggleIsFollowingProgress(true));
+    let data = await apiMethod(userId);
+    if (data.resultCode === 0) {
+        dispatch(actionCreator(userId));
+    }
+    dispatch(toggleIsFollowingProgress(false));
+};
+
 export const follow = (userId: number) => {
-    return (dispatch: Dispatch<getUserThunkCreatorType>) => {
-        dispatch(toggleIsFollowingProgress(true))
-        usersApi.followUser(userId).then(data => {
-            if (data.resultCode === 0) {
-                dispatch(followSuccess(userId))
-            }
-            dispatch(toggleIsFollowingProgress(false))
-        })
-    }
-}
+    return async (dispatch: Dispatch<getUserThunkCreatorType>) => {
+        let apiMethod = usersApi.followUser.bind(usersApi);
+        let actionCreator = followSuccess;
+        await followUnfollowFlow(dispatch, userId, apiMethod, actionCreator);
+    };
+};
+
 export const unfollow = (userId: number) => {
-    return (dispatch: Dispatch<getUserThunkCreatorType>) => {
-        dispatch(toggleIsFollowingProgress(true))
-        usersApi.unfollowUser(userId).then(data => {
-            if (data.resultCode === 0) {
-                dispatch(unfollowSuccess(userId))
-            }
-            dispatch(toggleIsFollowingProgress(false))
-        })
-    }
-}
+    return async (dispatch: Dispatch<getUserThunkCreatorType>) => {
+        let apiMethod = usersApi.unfollowUser.bind(usersApi);
+        let actionCreator = unfollowSuccess;
+        await followUnfollowFlow(dispatch, userId, apiMethod, actionCreator);
+    };
+};
 
 const initialState: UsersPageType = {
     users: [],
