@@ -9,7 +9,9 @@ type HeaderProps = {
     login: string,
     logout: () => void
 }
-export const Header = (props: HeaderProps) => {
+export const Header = ({
+    isAuth,email,login,logout
+                       }: HeaderProps) => {
 
     return (
         <header className={classes.header}>
@@ -19,12 +21,12 @@ export const Header = (props: HeaderProps) => {
 
             <div className={classes.loginBlock}>
 
-                {props.isAuth
+                {isAuth
                     ? <div>
-                        <div>{props.login}
-                            <button onClick={props.logout}>Log out</button>
+                        <div>{login}
+                            <button onClick={logout}>Log out</button>
                         </div>
-                        <div>{props.email}</div>
+                        <div>{email}</div>
                     </div>
 
                     : <NavLink to={'/login'}>
