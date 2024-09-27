@@ -1,6 +1,7 @@
 import React from 'react';
 import {WrappedFieldInputProps, WrappedFieldMetaProps} from "redux-form/lib/Field";
 import classes from './FormsControls.module.css';
+import {Field} from "redux-form";
 
 type FormControlPropsType = {
     input: WrappedFieldInputProps;
@@ -8,17 +9,17 @@ type FormControlPropsType = {
     children: React.ReactNode;
 };
 
-const FormControl: React.FC<FormControlPropsType> = ({input, meta, children}) => {
-    const hasError = meta.touched && meta.error;
+const FormControl: React.FC<FormControlPropsType> = ({input, meta: {touched, error}, children}) => {
+    const hasError = touched && error;
 
     return (
         <div className={`${classes.formControl} ${hasError ? classes.error : ''}`}>
             <div>
                 {React.Children.map(children, child =>
-                    React.isValidElement(child) ? React.cloneElement(child, {...input, ...meta}) : child
+                    React.isValidElement(child) ? React.cloneElement(child, {...input, touched, error}) : child
                 )}
             </div>
-            {hasError && <span>{meta.error}</span>}
+            {hasError && <span>{error}</span>}
         </div>
     );
 };
@@ -43,3 +44,18 @@ export const Input: React.FC<TextareaPropsType> = (props) => {
         </FormControl>
     );
 };
+
+
+export const renderField = (placeholder: string, name: string, type: string, component: React.ComponentType<any>, validate: any[] = [], isCheckbox: boolean = false, checkboxLabel: string = '') => (
+    <div>
+        <Field
+            placeholder={placeholder}
+            name={name}
+            type={type}
+            component={component}
+            validate={validate}
+        />
+        {isCheckbox && <label>{checkboxLabel}</label>}
+    </div>
+);
+
