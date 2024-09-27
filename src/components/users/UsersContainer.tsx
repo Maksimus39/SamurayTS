@@ -45,11 +45,13 @@ export type DialogsUsersPropsType = MapStateToProps & MapDispatchToProps;
 class UsersContainer extends React.Component<DialogsUsersPropsType, MapStateToProps> {
 
     componentDidMount() {
-        this.props.getUserThunkCreator(this.props.currentPage, this.props.pageSize);
+        const {currentPage, pageSize} = this.props
+        this.props.getUserThunkCreator(currentPage, pageSize);
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.getUserThunkCreator(pageNumber, this.props.pageSize);
+        const {pageSize} = this.props
+        this.props.getUserThunkCreator(pageNumber, pageSize);
     }
 
     render() {
