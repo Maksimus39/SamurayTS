@@ -8,9 +8,9 @@ import {maxLengthCreator, required} from "../utils/validators/validators";
 import {Textarea} from "../common/formsControls/FormsControls";
 
 
-export const Dialogs = (props: DialogsPropsType) => {
+export const Dialogs = ({dialogsPage,sendMessage}: DialogsPropsType) => {
 
-    let state = props.dialogsPage;
+    let state = dialogsPage;
 
     let dialogsElement = state.dialogs.map((d) => {
         return (
@@ -25,7 +25,7 @@ export const Dialogs = (props: DialogsPropsType) => {
     });
 
     const addNewMessage = (values: AddMessageFormValuesType) => {
-        props.sendMessage(values.newMessageText)
+        sendMessage(values.newMessageText)
 
     }
 
@@ -54,9 +54,9 @@ type AddMessageFormPropsType = InjectedFormProps<AddMessageFormValuesType>;
 
 const maxLength50 = maxLengthCreator(50)
 
-const AddMessageForm = (props: AddMessageFormPropsType) => {
+const AddMessageForm = ({handleSubmit}: AddMessageFormPropsType) => {
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
                 <Field component={Textarea}
                        name={'newMessageText'}
