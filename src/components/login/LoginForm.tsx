@@ -1,6 +1,6 @@
 import React from 'react';
-import {Field, InjectedFormProps, reduxForm} from 'redux-form';
-import {Input} from "../common/formsControls/FormsControls";
+import {InjectedFormProps, reduxForm} from 'redux-form';
+import {Input, renderField} from "../common/formsControls/FormsControls";
 import {required} from "../utils/validators/validators";
 import {connect} from "react-redux";
 import {login} from "../redux/reducer/authPageReducer";
@@ -20,30 +20,15 @@ type LoginFormData = {
 interface LoginFormProps extends InjectedFormProps<LoginFormData, {}> {
 }
 
-const LoginForm: React.FC<LoginFormProps> = (props) => {
-    return (
-        <form onSubmit={props.handleSubmit}>
-            <div>
-                <Field placeholder={'Email'}
-                       name={'email'}
-                       validate={[required]}
-                       component={Input}
-                />
-            </div>
-            <div>
-                <Field placeholder={'Password'}
-                       name={'password'}
-                       type={'password'}
-                       validate={[required]}
-                       component={Input}/>
-            </div>
-            <div>
-                <Field component={Input}
-                       name={'remember me'}
-                       type={"checkbox"}/> remember me
-            </div>
 
-            {props.error && <div className={styles.formSummaryError}>{props.error}</div>}
+const LoginForm = ({handleSubmit, error}: LoginFormProps) => {
+    return (
+        <form onSubmit={handleSubmit}>
+            {renderField('Email', 'email', 'text', Input, [required])}
+            {renderField('Password', 'password', 'password', Input, [required])}
+            {renderField('', 'remember me', 'checkbox', Input, [], true, 'remember me')}
+
+            {error && <div className={styles.formSummaryError}>{error}</div>}
 
             <div>
                 <button>Login</button>
@@ -51,6 +36,7 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
         </form>
     );
 };
+
 
 const LoginReduxForm = reduxForm<LoginFormData, {}>({form: 'login'})(LoginForm);
 
@@ -60,11 +46,11 @@ type LoginProps = {
     isAuth: boolean
 }
 
-const Login = (props: LoginProps) => {
+const Login = ({login, isAuth}: LoginProps) => {
     const onSubmit = (formData: LoginFormData) => {
-        props.login(formData.email, formData.password, formData["remember me"])
+        login(formData.email, formData.password, formData["remember me"])
     };
-    if (props.isAuth) {
+    if (isAuth) {
         return <Redirect to='/profile'/>;
     }
     return (
