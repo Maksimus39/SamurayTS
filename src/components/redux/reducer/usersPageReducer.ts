@@ -3,6 +3,7 @@ import {usersApi} from "../../api/api";
 import {Dispatch} from "redux";
 
 
+
 // Action type
 export type FollowActionType = {
     type: 'FOLLOW'
@@ -118,16 +119,14 @@ const followUnfollowFlow = async (
 export const follow = (userId: number) => {
     return async (dispatch: Dispatch<getUserThunkCreatorType>) => {
         let apiMethod = usersApi.followUser.bind(usersApi);
-        let actionCreator = followSuccess;
-        await followUnfollowFlow(dispatch, userId, apiMethod, actionCreator);
+        await followUnfollowFlow(dispatch, userId, apiMethod, followSuccess);
     };
 };
 
 export const unfollow = (userId: number) => {
     return async (dispatch: Dispatch<getUserThunkCreatorType>) => {
         let apiMethod = usersApi.unfollowUser.bind(usersApi);
-        let actionCreator = unfollowSuccess;
-        await followUnfollowFlow(dispatch, userId, apiMethod, actionCreator);
+        await followUnfollowFlow(dispatch, userId, apiMethod, unfollowSuccess);
     };
 };
 
