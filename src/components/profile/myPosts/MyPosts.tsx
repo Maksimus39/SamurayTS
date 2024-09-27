@@ -7,9 +7,11 @@ import {maxLengthCreator, required} from "../../utils/validators/validators";
 import {Textarea} from "../../common/formsControls/FormsControls";
 
 
-export const MyPosts = React.memo((props: MyPostType) => {
+export const MyPosts = React.memo(({
+    posts,addPost
+                                   }: MyPostType) => {
     console.log('RENDER YO')
-    let postDataElement = props.posts.map((p) => {
+    let postDataElement = posts.map((p) => {
         return (
             <Post key={p.id} message={p.message} likesCount={p.likesCount}/>
         )
@@ -17,7 +19,7 @@ export const MyPosts = React.memo((props: MyPostType) => {
 
 
     const onAddPost = (values: OnnAddPostValuesType) => {
-        props.addPost(values.newPostText)
+        addPost(values.newPostText)
     };
 
 
@@ -46,9 +48,9 @@ type AddNewPostFormProps = InjectedFormProps<OnnAddPostValuesType>;
 
 const maxLength10 = maxLengthCreator(10)
 
-const AddNewPostForm = (props: AddNewPostFormProps) => {
+const AddNewPostForm = ({handleSubmit}: AddNewPostFormProps) => {
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
 
             <div>
                 <Field name={'newPostText'}
