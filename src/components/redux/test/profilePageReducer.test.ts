@@ -1,4 +1,4 @@
-import {addPost, deletePost, profilePageReducer} from "./profilePageReducer";
+import {addPost, deletePost, profilePageReducer} from "../reducer/profilePageReducer";
 import {ProfilePageType} from "../store";
 
 let initialState: ProfilePageType = {
