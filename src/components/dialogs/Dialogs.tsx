@@ -4,7 +4,7 @@ import {DialogItem} from "./dialogItem/DialogItem";
 import {Message} from "./message/Message";
 import {DialogsPropsType} from "./DialogsContainer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {maxLengthCreator, required} from "../utils/validators/validators";
+import {maxLengthCreator, required} from "../settings/validators";
 import {Textarea} from "../common/formsControls/FormsControls";
 
 

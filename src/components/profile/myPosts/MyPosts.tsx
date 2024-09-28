@@ -3,7 +3,7 @@ import classes from "./MyPosts.module.css"
 import {Post} from "./posts/Post";
 import {MyPostType} from "./MyPostsContainer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {maxLengthCreator, required} from "../../utils/validators/validators";
+import {maxLengthCreator, required} from "../../settings/validators";
 import {Textarea} from "../../common/formsControls/FormsControls";
 
 
