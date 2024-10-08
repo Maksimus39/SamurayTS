@@ -1,7 +1,7 @@
 import React from "react";
-import {Header} from "./Header";
-import {Navbar} from "./Navbar";
-import {Profile} from "./Profile";
+import {Header} from "./components/Header";
+import {Navbar} from "./components/Navbar";
+import {Profile} from "./components/Profile";
 import './App.css'
 
 export const App = () => {
