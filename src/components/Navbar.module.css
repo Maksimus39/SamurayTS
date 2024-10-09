@@ -1,0 +1,25 @@
+.navbar {
+    grid-area: navbar;
+    background: linear-gradient(135deg, darkcyan, #006666); /* Градиентный фон */
+    margin: 5px;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid indianred;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Добавляем тень */
+}
+
+.navbar a {
+    text-decoration: none;
+    color: black;
+    letter-spacing: 1px; /* Расстояние между буквами */
+    display: block; /* Делаем ссылки блочными элементами для лучшего отображения */
+    margin-bottom: 15px; /* Расстояние между элементами списка */
+    font-size: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Добавляем тень к тексту */
+    transition: color 0.3s ease, transform 0.3s ease; /* Добавляем плавный переход */
+}
+
+.navbar a:hover {
+    color: indianred; /* Изменяем цвет при наведении */
+    transform: scale(1.05); /* Увеличиваем размер при наведении */
+}

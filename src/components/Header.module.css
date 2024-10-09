@@ -1,0 +1,15 @@
+.header {
+    grid-area: header;
+    background: linear-gradient(135deg, darkcyan, #006666); /* Градиентный фон */
+    margin: 5px;
+    padding-top: 15px;
+    padding-left: 19px;
+    border-radius: 10px;
+    border: 1px solid indianred;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Добавляем тень */
+}
+
+.header img {
+    width: 90px;
+    border-radius: 10px;
+}
