@@ -15,6 +15,18 @@
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Добавляем тень для контейнера */
 }
 
+.app-wrapper-content {
+        grid-area: profile;
+        background: linear-gradient(135deg, darkcyan, #006666); /* Градиентный фон */
+        margin: 5px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center; /* Центрирует содержимое по горизонтали */
+        align-items: center; /* Центрирует содержимое по вертикали */
+        border: 1px solid indianred;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Добавляем тень */
+}
+
 
 
 
