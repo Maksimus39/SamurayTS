@@ -15,9 +15,9 @@ export const MyPosts = () => {
                     <button>Add post</button>
                 </div>
                 <div className={styles.imagesApp}>
-                    <Post/>
-                    <Post/>
-                    <Post/>
+                    <Post like={10} message={'Привет как дела'}/>
+                    <Post like={20} message={'Мы будем сегодня кодить?'}/>
+                    <Post like={30}/>
                 </div>
             </div>
         </div>
