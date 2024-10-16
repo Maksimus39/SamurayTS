@@ -6,7 +6,7 @@ import {Post} from "./Post/Post";
 export const MyPosts = () => {
     return (
         <div>
-            My posts
+            <h2>My posts</h2>
             <div>
                 <div>
                     <textarea></textarea>
@@ -17,7 +17,6 @@ export const MyPosts = () => {
                 <div className={styles.imagesApp}>
                     <Post like={10} message={'Привет как дела'}/>
                     <Post like={20} message={'Мы будем сегодня кодить?'}/>
-                    <Post like={30}/>
                 </div>
             </div>
         </div>
