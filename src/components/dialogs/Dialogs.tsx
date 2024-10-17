@@ -19,6 +19,7 @@ const DialogItem = ({name, id}: DialogItemPropsType) => {
 
 
 type MessageProps = {
+    id: number
     message: string
 }
 const Message = ({message}: MessageProps) => {
@@ -30,36 +31,50 @@ const Message = ({message}: MessageProps) => {
 }
 
 export const Dialogs = () => {
+
+    let dialogsData = [
+        {id: 1, name: 'Иван Иванович:'},
+        {id: 2, name: 'Анна Петровна:'},
+        {id: 3, name: 'Andrey:'},
+        {id: 4, name: 'Маша:'}
+    ]
+
+    let messageData = [
+        {
+            id: 1,
+            message: 'Иван Иванович – настоящий мужик! Высокий, крепкий, с румяными щеками.'
+        },
+        {
+            id: 2,
+            message: 'Анна Петровна – сердце семьи. Красивая, милая, всегда улыбается. Работает бухгалтером, но дома – настоящая хозяйка.'
+        },
+        {
+            id: 3,
+            message: 'Андрей – шумный, непоседливый, всегда в движении. Увлекается компьютерными играми, но не забывает и о спорте.'
+        },
+        {
+            id: 4,
+            message: 'Маша – маленькая красавица, с длинными кудрявыми волосами. Любит петь, танцевать, рисовать.'
+        }
+
+    ]
+
+
     return (
         <div className={classes.dialogs}>
             <div className={classes.dialogsItem}>
-                <DialogItem name={'Иван Иванович:'} id={1}/>
-                <DialogItem name={'Анна Петровна:'} id={2}/>
-                <DialogItem name={'Andrey:'} id={3}/>
-                <DialogItem name={'Маша:'} id={4}/>
+                <DialogItem name={dialogsData[0].name} id={dialogsData[0].id}/>
+                <DialogItem name={dialogsData[1].name} id={dialogsData[1].id}/>
+                <DialogItem name={dialogsData[2].name} id={dialogsData[2].id}/>
+                <DialogItem name={dialogsData[3].name} id={dialogsData[3].id}/>
+
             </div>
 
             <div className={classes.messages}>
-                <div className={classes.message}>
-                    <Message
-                        message={'Иван Иванович – настоящий мужик! Высокий, крепкий, с румяными щеками. Работает на заводе, строгает доски, как никто другой. Любит поспорить о футболе, особенно когда играет "Спартак". В выходные рыбачит на своей лодке "Золотая рыбка". Готовит отлично, особенно любит жарить шашлыки на даче.'}
-                    />
-                </div>
-                <div className={classes.message}>
-                    <Message
-                        message={'Анна Петровна – сердце семьи. Красивая, милая, всегда улыбается. Работает бухгалтером, но дома – настоящая хозяйка. Готовит, убирает, заботится о всех. Любит цветы, на подоконнике всегда стоят горшки с геранью и фиалками. В свободное время любит вязать, у нее есть целая коллекция свитеров и шапок.'}
-                    />
-                </div>
-                <div className={classes.message}>
-                    <Message
-                        message={'Андрей – шумный, непоседливый, всегда в движении. Увлекается компьютерными играми, но не забывает и о спорте. Играет в футбол за школьную команду. У него много друзей, с ними он часто гуляет, катается на велосипеде. Мечтает стать программистом и создать свою игру.'}
-                    />
-                </div>
-                <div className={classes.message}>
-                    <Message
-                        message={'Маша – маленькая красавица, с длинными кудрявыми волосами. Любит петь, танцевать, рисовать. В школе учится на "отлично", особенно любит математику. Мечтает стать актрисой и сниматься в кино. В свободное время увлекается чтением сказок и играми с куклами.'}
-                    />
-                </div>
+                <Message id={messageData[0].id} message={messageData[0].message}/>
+                <Message id={messageData[1].id} message={messageData[1].message}/>
+                <Message id={messageData[2].id} message={messageData[2].message}/>
+                <Message id={messageData[3].id} message={messageData[3].message}/>
             </div>
         </div>
     );
