@@ -9,7 +9,7 @@ const DialogItem = ({name, id}: DialogItemPropsType) => {
     let path = '/dialogs/' + id
 
     return (
-        <div>
+        <div key={id}>
             <div className={classes.dialog}>
                 <NavLink to={path}>{name}</NavLink>
             </div>
@@ -22,9 +22,9 @@ type MessageProps = {
     id: number
     message: string
 }
-const Message = ({message}: MessageProps) => {
+const Message = ({id, message}: MessageProps) => {
     return (
-        <div className={classes.message}>
+        <div className={classes.message} key={id}>
             {message}
         </div>
     )
@@ -60,21 +60,24 @@ export const Dialogs = () => {
     ]
 
 
+    let dialogsElement = dialogsData.map(d => {
+        return <DialogItem name={d.name} id={d.id}/>
+    })
+
+    let messageElement = messageData.map(m => {
+        return <Message id={m.id} message={m.message}/>
+    })
+
     return (
         <div className={classes.dialogs}>
             <div className={classes.dialogsItem}>
-                <DialogItem name={dialogsData[0].name} id={dialogsData[0].id}/>
-                <DialogItem name={dialogsData[1].name} id={dialogsData[1].id}/>
-                <DialogItem name={dialogsData[2].name} id={dialogsData[2].id}/>
-                <DialogItem name={dialogsData[3].name} id={dialogsData[3].id}/>
 
+                {dialogsElement}
             </div>
 
             <div className={classes.messages}>
-                <Message id={messageData[0].id} message={messageData[0].message}/>
-                <Message id={messageData[1].id} message={messageData[1].message}/>
-                <Message id={messageData[2].id} message={messageData[2].message}/>
-                <Message id={messageData[3].id} message={messageData[3].message}/>
+
+                {messageElement}
             </div>
         </div>
     );

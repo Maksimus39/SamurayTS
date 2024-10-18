@@ -4,6 +4,16 @@ import {Post} from "./Post/Post";
 
 
 export const MyPosts = () => {
+
+    let posts = [
+        {id: 1, like: 10, message: 'Привет как дела'},
+        {id: 2, like: 10, message: 'Мы будем сегодня кодить'}
+    ]
+
+    let postsElement = posts.map(p => {
+        return <Post like={p.like} message={p.message}/>
+    })
+
     return (
         <div>
             <h2>My posts</h2>
@@ -15,8 +25,8 @@ export const MyPosts = () => {
                     <button>Add post</button>
                 </div>
                 <div className={styles.imagesApp}>
-                    <Post like={10} message={'Привет как дела'}/>
-                    <Post like={20} message={'Мы будем сегодня кодить?'}/>
+
+                    {postsElement}
                 </div>
             </div>
         </div>
