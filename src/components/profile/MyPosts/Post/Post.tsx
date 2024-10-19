@@ -2,7 +2,7 @@ import React from "react";
 
 type Props = {
     like: number
-    message?: string
+    message: string
 }
 export const Post = ({like, message}: Props) => {
     return (

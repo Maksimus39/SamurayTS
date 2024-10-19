@@ -8,8 +8,15 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./components/news/News";
 import {Music} from "./components/music/Musik";
 import {Settings} from "./components/settings/Settings";
+import {DialogsDataType, MessageDataType, PostsType} from "./index";
 
-export const App = () => {
+
+type Props = {
+    dialogsData: DialogsDataType[]
+    messageData: MessageDataType[]
+    posts: PostsType[]
+}
+export const App = ({dialogsData, messageData, posts}: Props) => {
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
