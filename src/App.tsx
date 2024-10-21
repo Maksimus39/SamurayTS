@@ -16,6 +16,7 @@ type Props = {
     messageData: MessageDataType[]
     posts: PostsType[]
 }
+
 export const App = ({dialogsData, messageData, posts}: Props) => {
     return (
         <BrowserRouter>
@@ -23,11 +24,11 @@ export const App = ({dialogsData, messageData, posts}: Props) => {
                 <Header/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Route path={'/profile'} component={Profile}/>
-                    <Route path={'/dialogs'} component={Dialogs}/>
-                    <Route path={'/news'} component={News}/>
-                    <Route path={'/music'} component={Music}/>
-                    <Route path={'/settings'} component={Settings}/>
+                    <Route path={'/profile'} render={() => <Profile posts={posts}/> }/>
+                    <Route path={'/dialogs'} render={() => <Dialogs dialogsData={dialogsData} messageData={messageData}/>}/>
+                    <Route path={'/news'} render={() => <News/>}/>
+                    <Route path={'/music'} render={() => <Music/>}/>
+                    <Route path={'/settings'} render={() => <Settings/>}/>
                 </div>
             </div>
         </BrowserRouter>

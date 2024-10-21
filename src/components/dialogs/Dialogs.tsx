@@ -1,37 +1,14 @@
 import classes from './Dialogs.module.css'
 import {DialogItem} from "./dialogItem/DialogItem";
 import {Message} from "./message/Message";
+import {DialogsDataType, MessageDataType} from "../../index";
 
+type Props={
+    dialogsData: DialogsDataType[]
+    messageData: MessageDataType[]
+}
 
-export const Dialogs = () => {
-
-    // let dialogsData = [
-    //     {id: 1, name: 'Иван Иванович:'},
-    //     {id: 2, name: 'Анна Петровна:'},
-    //     {id: 3, name: 'Andrey:'},
-    //     {id: 4, name: 'Маша:'}
-    // ]
-    //
-    // let messageData = [
-    //     {
-    //         id: 1,
-    //         message: 'Иван Иванович – настоящий мужик! Высокий, крепкий, с румяными щеками.'
-    //     },
-    //     {
-    //         id: 2,
-    //         message: 'Анна Петровна – сердце семьи. Красивая, милая, всегда улыбается. Работает бухгалтером, но дома – настоящая хозяйка.'
-    //     },
-    //     {
-    //         id: 3,
-    //         message: 'Андрей – шумный, непоседливый, всегда в движении. Увлекается компьютерными играми, но не забывает и о спорте.'
-    //     },
-    //     {
-    //         id: 4,
-    //         message: 'Маша – маленькая красавица, с длинными кудрявыми волосами. Любит петь, танцевать, рисовать.'
-    //     }
-    //
-    // ]
-
+export const Dialogs = ({dialogsData,messageData}:Props) => {
 
     let dialogsElement = dialogsData.map(d => {
         return <DialogItem name={d.name} id={d.id}/>
