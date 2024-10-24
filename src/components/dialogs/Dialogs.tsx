@@ -2,6 +2,7 @@ import classes from './Dialogs.module.css'
 import {DialogItem} from "./dialogItem/DialogItem";
 import {Message} from "./message/Message";
 import {DialogsDataType, MessageDataType} from "../../redux/state";
+import React from "react";
 
 
 type Props = {
@@ -19,6 +20,13 @@ export const Dialogs = ({dialogsData, messageData}: Props) => {
         return <Message id={m.id} message={m.message}/>
     })
 
+    let newPostElement = React.createRef<HTMLTextAreaElement>()
+
+    let addMessage = ()=>{
+        let text = newPostElement.current?.value
+        alert(text)
+    }
+
     return (
         <div className={classes.dialogs}>
             <div className={classes.dialogsItem}>
@@ -30,6 +38,16 @@ export const Dialogs = ({dialogsData, messageData}: Props) => {
 
                 {messageElement}
             </div>
+
+
+
+            <div>
+                <textarea ref={newPostElement}></textarea>
+            </div>
+            <div>
+                <button onClick={addMessage}>Message</button>
+            </div>
+
         </div>
     );
 };
