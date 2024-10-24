@@ -13,15 +13,22 @@ export const MyPosts = ({posts}:Props) => {
         return <Post like={p.like} message={p.message}/>
     })
 
+    let newPostElement = React.createRef<HTMLTextAreaElement>()
+
+    let addPost = ()=>{
+        let text = newPostElement.current?.value
+        alert(text)
+    }
+
     return (
         <div>
             <h2>My posts</h2>
             <div>
                 <div>
-                    <textarea></textarea>
+                    <textarea ref={newPostElement}></textarea>
                 </div>
                 <div>
-                    <button>Add post</button>
+                    <button onClick={addPost}>Add post</button>
                 </div>
                 <div className={styles.imagesApp}>
 
