@@ -14,8 +14,13 @@ import {
     unfollow
 } from "../redux/reducer/usersPageReducer";
 import {Users} from "./Users";
-import {withAuthRedirect} from "../hoc/WithAuthRedirect";
 import {compose} from "redux";
+import {
+    getCurrentPageSelector,
+    getFollowingIsProgressSelector,
+    getIsFetchingSelector, getPage, getTotalUsersCount,
+    getUsers,
+} from "../redux/functionSelector/appPageUsersSelector";
 
 export type MapStateToProps = {
     users: UsersDataType[]
@@ -64,19 +69,19 @@ class UsersContainer extends React.Component<DialogsUsersPropsType, MapStateToPr
     }
 }
 
-let mapStateToProps = (state: AppRootStateType): MapStateToProps => {
+
+const mapStateToProps = (state: AppRootStateType): MapStateToProps => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress,
+        users: getUsers(state),
+        pageSize: getPage(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPageSelector(state),
+        isFetching: getIsFetchingSelector(state),
+        followingInProgress: getFollowingIsProgressSelector(state),
     }
 }
 
 export default compose<React.ComponentType>(
-    withAuthRedirect,
     connect(mapStateToProps, {
         follow,
         unfollow,

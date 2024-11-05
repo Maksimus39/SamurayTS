@@ -1,7 +1,7 @@
-import {DispatchType, SetUserDataType} from "../store";
 import {Dispatch} from "redux";
 import {usersApi} from "../../api/api";
 import {stopSubmit} from "redux-form";
+import {DispatchType, SetUserDataType} from "../store";
 
 // ActionType
 export type SetUserDataActionType = {

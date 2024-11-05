@@ -4,7 +4,7 @@ type GetUsersProps = {
     currentPage: number;
     pageSize: number;
 }
-const apiKey = 'e6eaa2aa-df7a-4193-8c16-782484153fda';
+const apiKey = '45aee50a-c9c4-45c9-a45b-d5e0600355b0';
 const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',

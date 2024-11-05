@@ -6,10 +6,6 @@ import {logout, setAuthUserData} from "../redux/reducer/authPageReducer";
 
 class HeaderContainer extends React.Component<any, MapStateToPropsType> {
 
-    // componentDidMount() {
-    //     this.props.setAuthThunkCreator()
-    // }
-
     render() {
 
         return (
