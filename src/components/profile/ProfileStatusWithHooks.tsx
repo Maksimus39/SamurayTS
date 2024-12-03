@@ -5,14 +5,14 @@ type ProfileStatusProps = {
     updateStatus: (status: string) => void;
 };
 
-export const ProfileStatusWithHooks: React.FC<ProfileStatusProps> = ({ status, updateStatus }) => {
+export const ProfileStatusWithHooks: React.FC<ProfileStatusProps> = ({status, updateStatus}) => {
     const [editMode, setEditMode] = useState(false);
     const [currentStatus, setCurrentStatus] = useState(status);
 
 
     useEffect(() => {
-
-    }, []);
+        setCurrentStatus(status);
+    }, [status]);
 
     const activateEditMode = () => {
         setEditMode(true);
