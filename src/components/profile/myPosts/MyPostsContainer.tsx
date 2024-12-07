@@ -1,8 +1,8 @@
 import {addPost} from "../../redux/reducer/profilePageReducer";
-import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/redux-store";
 import {PostDataType} from "../../redux/store";
+import {MyPosts} from "./MyPosts";
 
 export type MapStatePropsType = {
     posts: PostDataType[]
