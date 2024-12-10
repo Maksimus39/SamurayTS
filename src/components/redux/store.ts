@@ -1,5 +1,5 @@
 import {
-    AddPostActionType,
+    AddPostActionType, deletePost, DeletePostActionType,
     SetStatusActionType,
     SetUserProfileActionType
 
@@ -90,6 +90,7 @@ export type DispatchType =
     | SetUserDataActionType
     | ToggleIsFollowingProgressActionType
     | SetStatusActionType
+    | DeletePostActionType
 
 
 

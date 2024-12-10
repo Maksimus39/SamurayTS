@@ -15,6 +15,10 @@ export type SetStatusActionType = {
     type: 'SET-STATUS'
     status: string
 }
+export type DeletePostActionType = {
+    type: 'DELETE-POST'
+    postId: number
+}
 
 
 // Action creator
@@ -34,6 +38,12 @@ export const setStatus = (status: string): SetStatusActionType => {
     return {
         type: 'SET-STATUS',
         status: status
+    } as const
+}
+export const deletePost = (postId: number): DeletePostActionType => {
+    return {
+        type: 'DELETE-POST',
+        postId: postId
     } as const
 }
 
@@ -97,6 +107,10 @@ export const profilePageReducer = (state: ProfilePageType = initialState, action
         case "SET-STATUS":
             return {
                 ...state, status: action.status
+            }
+        case "DELETE-POST":
+            return {
+                ...state, posts: state.posts.filter(post => post.id !== action.postId),
             }
         default:
             return state
