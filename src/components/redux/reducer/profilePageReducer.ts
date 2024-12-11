@@ -4,19 +4,19 @@ import {usersApi} from "../../api/api";
 
 // Action type
 export type AddPostActionType = {
-    type: 'ADD-POST'
+    type: 'SAMURAI-NETWORK/PROFILE/ADD-POST'
     newPostText: string
 }
 export type SetUserProfileActionType = {
-    type: 'SET-USER-PROFILE'
+    type: 'SAMURAI-NETWORK/PROFILE/SET-USER-PROFILE'
     profile: null
 }
 export type SetStatusActionType = {
-    type: 'SET-STATUS'
+    type: 'SAMURAI-NETWORK/PROFILE/SET-STATUS'
     status: string
 }
 export type DeletePostActionType = {
-    type: 'DELETE-POST'
+    type: 'SAMURAI-NETWORK/PROFILE/DELETE-POST'
     postId: number
 }
 
@@ -24,25 +24,25 @@ export type DeletePostActionType = {
 // Action creator
 export const addPost = (newPostText: string): AddPostActionType => {
     return {
-        type: 'ADD-POST',
+        type: 'SAMURAI-NETWORK/PROFILE/ADD-POST',
         newPostText: newPostText
     } as const
 }
 export const setUserProfile = (profile: null): SetUserProfileActionType => {
     return {
-        type: 'SET-USER-PROFILE',
+        type: 'SAMURAI-NETWORK/PROFILE/SET-USER-PROFILE',
         profile: profile
     } as const
 }
 export const setStatus = (status: string): SetStatusActionType => {
     return {
-        type: 'SET-STATUS',
+        type: 'SAMURAI-NETWORK/PROFILE/SET-STATUS',
         status: status
     } as const
 }
 export const deletePost = (postId: number): DeletePostActionType => {
     return {
-        type: 'DELETE-POST',
+        type: 'SAMURAI-NETWORK/PROFILE/DELETE-POST',
         postId: postId
     } as const
 }
@@ -54,27 +54,19 @@ type ProfileThunkCreatorType = AddPostActionType
     | SetStatusActionType
 
 // Thunk creator
-export const profileThunkCreator = (userId: number) => {
-    return (dispatch: Dispatch<ProfileThunkCreatorType>) => {
-        usersApi.getProfile(userId).then(data => {
-            dispatch(setUserProfile(data))
-        })
-    }
+export const profileThunkCreator = (userId: number) => async (dispatch: Dispatch<ProfileThunkCreatorType>) => {
+    let data = await usersApi.getProfile(userId)
+    dispatch(setUserProfile(data))
 }
-export const getStatus = (userId: number) => {
-    return (dispatch: Dispatch<ProfileThunkCreatorType>) => {
-        usersApi.getStatus(userId).then(response => {
-            dispatch(setStatus(response))
-        })
-    }
+export const getStatus = (userId: number) => async (dispatch: Dispatch<ProfileThunkCreatorType>) => {
+    await usersApi.getStatus(userId).then(response => {
+        dispatch(setStatus(response))
+    })
 }
-export const updateStatus = (status: string) => {
-    return (dispatch: Dispatch<ProfileThunkCreatorType>) => {
-        usersApi.updateStatus(status).then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setStatus(status))
-            }
-        })
+export const updateStatus = (status: string) => async (dispatch: Dispatch<ProfileThunkCreatorType>) => {
+    const response = await usersApi.updateStatus(status)
+    if (response.data.resultCode === 0) {
+        dispatch(setStatus(status))
     }
 }
 
@@ -90,7 +82,7 @@ let initialState: ProfilePageType = {
 
 export const profilePageReducer = (state: ProfilePageType = initialState, action: DispatchType): ProfilePageType => {
     switch (action.type) {
-        case 'ADD-POST':
+        case 'SAMURAI-NETWORK/PROFILE/ADD-POST':
             let newPost: PostDataType = {
                 id: new Date().getTime(),
                 message: action.newPostText,
@@ -98,17 +90,17 @@ export const profilePageReducer = (state: ProfilePageType = initialState, action
             };
             return {
                 ...state,
-                posts: [...state.posts, newPost],
+                posts: [newPost, ...state.posts],
             }
-        case "SET-USER-PROFILE":
+        case "SAMURAI-NETWORK/PROFILE/SET-USER-PROFILE":
             return {
                 ...state, profile: action.profile
             }
-        case "SET-STATUS":
+        case "SAMURAI-NETWORK/PROFILE/SET-STATUS":
             return {
                 ...state, status: action.status
             }
-        case "DELETE-POST":
+        case "SAMURAI-NETWORK/PROFILE/DELETE-POST":
             return {
                 ...state, posts: state.posts.filter(post => post.id !== action.postId),
             }

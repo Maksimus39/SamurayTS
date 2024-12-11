@@ -5,7 +5,7 @@ import {stopSubmit} from "redux-form";
 
 // ActionType
 export type SetUserDataActionType = {
-    type: 'SET-USER-DATA'
+    type: 'SAMURAI-NETWORK/APP/SET-USER-DATA'
     payload: {
         userId: null,
         login: null,
@@ -17,7 +17,7 @@ export type SetUserDataActionType = {
 // AC
 export const setAuthUserData = (id: null, login: null, email: null, isAuth: boolean,): SetUserDataActionType => {
     return {
-        type: 'SET-USER-DATA',
+        type: 'SAMURAI-NETWORK/APP/SET-USER-DATA',
         payload: {
             userId: id,
             login: login,
@@ -77,10 +77,11 @@ const initialState: SetUserDataType = {
 
 export const appReducer = (state: SetUserDataType = initialState, action: DispatchType): SetUserDataType => {
     switch (action.type) {
-        case "SET-USER-DATA":
+        case "SAMURAI-NETWORK/AUTH/SET-USER-DATA":
             return {
                 ...state, ...action.payload
             }
+
         default:
             return state
     }

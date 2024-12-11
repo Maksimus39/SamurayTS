@@ -1,15 +1,17 @@
 import {
-    AddPostActionType, deletePost, DeletePostActionType,
+    AddPostActionType,
+    DeletePostActionType,
     SetStatusActionType,
     SetUserProfileActionType
-
 } from "./reducer/profilePageReducer";
 import {AddNewMessageTextActionType} from "./reducer/dialogsPageReducer";
 import {
     FollowActionType,
-
-    SetCurrentPageActionType, SetUsersActionType,
-    SetUsersTotalCountActionType, ToggleIsFetchingActionType, ToggleIsFollowingProgressActionType,
+    SetCurrentPageActionType,
+    SetUsersActionType,
+    SetUsersTotalCountActionType,
+    ToggleIsFetchingActionType,
+    ToggleIsFollowingProgressActionType,
     UnfollowActionType
 } from "./reducer/usersPageReducer";
 import {SetUserDataActionType} from "./reducer/authPageReducer";

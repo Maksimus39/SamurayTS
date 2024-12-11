@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import {Navbar} from "./components/navbar/Navbar";
-import {Route, Switch, withRouter} from "react-router-dom"; // Добавлен импорт BrowserRouter
+import {Route, Switch, withRouter} from "react-router-dom";
 import {News} from "./components/news/News";
 import {Music} from "./components/music/Music";
 import {Settings} from "./components/settings/Settings";
@@ -12,8 +12,8 @@ import DialogsContainer from "./components/dialogs/DialogsContainer";
 import Login from "./components/login/LoginForm";
 import {connect} from "react-redux";
 import {compose} from "redux";
-import {setAuthThunkCreator} from "./components/redux/reducer/authPageReducer";
 import {AppRootStateType} from "./components/redux/redux-store";
+import {setAuthThunkCreator} from "./components/redux/reducer/authPageReducer";
 
 class App extends Component<any, AppRootStateType> {
 

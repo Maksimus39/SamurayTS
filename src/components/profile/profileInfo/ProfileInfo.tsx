@@ -27,7 +27,7 @@ export const ProfileInfo = (props: ProfileInfoProps) => {
     const { profile, status, updateStatus } = props;
 
     return (
-        <React.Fragment>
+        <>
             <div className={classes.avatar}>
                 <img
                     src="https://avatars.dzeninfra.ru/get-zen_doc/271828/pub_655658c72ac2da7753ee753c_6556596de3bfcb307785efa6/scale_1200"
@@ -52,6 +52,6 @@ export const ProfileInfo = (props: ProfileInfoProps) => {
                     <h2>Вакансии: {profile.lookingForAJobDescription}</h2>
                 </div>
             </div>
-        </React.Fragment>
+        </>
     );
 };

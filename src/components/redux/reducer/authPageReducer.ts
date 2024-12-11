@@ -5,7 +5,7 @@ import {DispatchType, SetUserDataType} from "../store";
 
 // ActionType
 export type SetUserDataActionType = {
-    type: 'SET-USER-DATA'
+    type: 'SAMURAI-NETWORK/AUTH/SET-USER-DATA'
     payload: {
         userId: null,
         login: null,
@@ -17,7 +17,7 @@ export type SetUserDataActionType = {
 // AC
 export const setAuthUserData = (id: null, login: null, email: null, isAuth: boolean,): SetUserDataActionType => {
     return {
-        type: 'SET-USER-DATA',
+        type: 'SAMURAI-NETWORK/AUTH/SET-USER-DATA',
         payload: {
             userId: id,
             login: login,
@@ -31,41 +31,27 @@ type ThunkCreatorType = SetUserDataActionType
 
 
 // Thunk creator
-export const setAuthThunkCreator = () => {
-    return (dispatch: Dispatch<ThunkCreatorType>) => {
-        usersApi.getAuthUserData().then(data => {
-            if (data.resultCode === 0) {
-                let {id, login, email} = data.data;
-                dispatch(setAuthUserData(id, login, email, true));
-            }
-        });
-    };
+export const setAuthThunkCreator = () => async (dispatch: Dispatch<ThunkCreatorType>) => {
+    let data = await usersApi.getAuthUserData()
+    if (data.resultCode === 0) {
+        let {id, login, email} = data.data;
+        dispatch(setAuthUserData(id, login, email, true));
+    }
 };
-
-export const login = (email: string, password: string, rememberMe: boolean) => {
-    return (dispatch: Dispatch<any>) => {
-        usersApi.login(email, password, rememberMe)
-            .then(response => {
-                if (response.resultCode === 0) {
-                    dispatch(setAuthThunkCreator())
-                } else {
-
-                    let message = response.messages.length > 0 ? response.messages[0] : 'Some error'
-                    dispatch(stopSubmit('login', {_error: message}))
-                }
-            })
-    };
+export const login = (email: string, password: string, rememberMe: boolean) => async (dispatch: Dispatch<any>) => {
+    let response = await usersApi.login(email, password, rememberMe)
+    if (response.resultCode === 0) {
+        dispatch(setAuthThunkCreator())
+    } else {
+        let message = response.messages.length > 0 ? response.messages[0] : 'Some error'
+        dispatch(stopSubmit('login', {_error: message}))
+    }
 };
-
-export const logout = () => {
-    return (dispatch: Dispatch<ThunkCreatorType>) => {
-        usersApi.logout()
-            .then(response => {
-                if (response.resultCode === 0) {
-                    dispatch(setAuthUserData(null, null, null, false));
-                }
-            })
-    };
+export const logout = () => async (dispatch: Dispatch<ThunkCreatorType>) => {
+    let response = await usersApi.logout()
+    if (response.resultCode === 0) {
+        dispatch(setAuthUserData(null, null, null, false));
+    }
 };
 
 
@@ -78,7 +64,7 @@ const initialState: SetUserDataType = {
 
 export const authReducer = (state: SetUserDataType = initialState, action: DispatchType): SetUserDataType => {
     switch (action.type) {
-        case "SET-USER-DATA":
+        case 'SAMURAI-NETWORK/AUTH/SET-USER-DATA':
             return {
                 ...state, ...action.payload
             }

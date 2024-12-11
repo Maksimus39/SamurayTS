@@ -1,14 +1,14 @@
 import {DialogsPageType, DispatchType, MessagesDataType} from "../store";
 
 export type AddNewMessageTextActionType = {
-    type: 'ADD-NEW-MESSAGE-TEXT'
+    type: 'SAMURAI-NETWORK/DIALOGS/ADD-NEW-MESSAGE-TEXT'
     newMessageText: string
 }
 
 
 export const addNewMessageTextActionCreator = (newMessageText: string): AddNewMessageTextActionType => {
     return {
-        type: 'ADD-NEW-MESSAGE-TEXT',
+        type: 'SAMURAI-NETWORK/DIALOGS/ADD-NEW-MESSAGE-TEXT',
         newMessageText: newMessageText
     } as const
 }
@@ -46,7 +46,7 @@ let initialState: DialogsPageType = {
 
 export const dialogsPageReducer = (state: DialogsPageType = initialState, action: DispatchType) => {
     switch (action.type) {
-        case 'ADD-NEW-MESSAGE-TEXT':
+        case 'SAMURAI-NETWORK/DIALOGS/ADD-NEW-MESSAGE-TEXT':
             let newMessage: MessagesDataType = {
                 id: new Date().getTime(),
                 message:action.newMessageText
