@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/SamurayTS/static/css/main.7e2d7436.css",
+    "main.js": "/SamurayTS/static/js/main.5f654922.js",
+    "static/media/motion-blur-2.svg": "/SamurayTS/static/media/motion-blur-2.0aa1f576c35317f4301ad547d016da31.svg",
+    "index.html": "/SamurayTS/index.html",
+    "main.7e2d7436.css.map": "/SamurayTS/static/css/main.7e2d7436.css.map",
+    "main.5f654922.js.map": "/SamurayTS/static/js/main.5f654922.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7e2d7436.css",
+    "static/js/main.5f654922.js"
+  ]
+}
