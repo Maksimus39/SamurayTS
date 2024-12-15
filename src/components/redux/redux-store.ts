@@ -1,4 +1,4 @@
-import {applyMiddleware, combineReducers, createStore, Store} from "redux";
+import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import {profilePageReducer} from "./reducer/profilePageReducer";
 import {dialogsPageReducer} from "./reducer/dialogsPageReducer";
 import {sidebarPageReducer} from "./reducer/SidePageReducer";
@@ -19,9 +19,5 @@ let reducer = combineReducers({
 
 export type AppRootStateType = ReturnType<typeof reducer>
 
-export let store: Store<AppRootStateType> = createStore(reducer, applyMiddleware(thunkMiddleware));
-
-
-// а это, чтобы можно было в консоли браузера обращаться к store в любой момент
-// @ts-ignore
-window.store = store
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+export const store = createStore(reducer, composeEnhancers(applyMiddleware(thunkMiddleware)));
