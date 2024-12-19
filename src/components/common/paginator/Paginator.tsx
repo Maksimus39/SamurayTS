@@ -15,7 +15,7 @@ export const Paginator = ({
                               pageSize,
                               currentPage,
                               onPageChanged,
-                              portionSize = 10
+                              portionSize = 15
                           }: UsersProps) => {
 
     let pagesCount = Math.ceil(totalItemsCount / pageSize);
