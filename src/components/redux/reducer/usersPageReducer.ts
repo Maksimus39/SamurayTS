@@ -93,17 +93,17 @@ const followUnfollowFlow = async (dispatch: Dispatch, userId: number, apiMethod:
 }
 export const follow = (userId: number) => async (dispatch: Dispatch) => {
     let apiMethod = usersApi.followUser.bind(usersApi)
-    followUnfollowFlow(dispatch, userId, apiMethod, followSuccess)
+    await followUnfollowFlow(dispatch, userId, apiMethod, followSuccess)
 }
 export const unfollow = (userId: number) => async (dispatch: Dispatch) => {
     let apiMethod = usersApi.unfollowUser.bind(usersApi)
-    followUnfollowFlow(dispatch, userId, apiMethod, unfollowSuccess)
+    await followUnfollowFlow(dispatch, userId, apiMethod, unfollowSuccess)
 }
 
 
 const initialState: UsersPageType = {
     users: [],
-    pageSize: 10,
+    pageSize: 6,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: true,

@@ -28,14 +28,18 @@ export const Users = ({
 
     return <div>
 
-        <Paginator totalUsersCount={totalUsersCount}
+        <Paginator totalItemsCount={totalUsersCount}
                    pageSize={pageSize}
                    currentPage={currentPage}
                    onPageChanged={onPageChanged}/>
 
         <div className={styles.usersList}>
             {users.map(us => (
-                <User key={us.id} user={us} unfollow={unfollow} follow={follow} followingInProgress={followingInProgress} />
+                <User key={us.id}
+                      user={us}
+                      unfollow={unfollow}
+                      follow={follow}
+                      followingInProgress={followingInProgress}/>
             ))}
         </div>
     </div>
