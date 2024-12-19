@@ -5,15 +5,18 @@ import {BrowserRouter, Route, Switch, withRouter} from "react-router-dom";
 import {News} from "./components/news/News";
 import {Music} from "./components/music/Music";
 import {Settings} from "./components/settings/Settings";
-import ProfileContainer from "./components/profile/ProfileContainer";
 import HeaderContainer from "./components/header/HeaderContainer";
 import UsersContainer from "./components/users/UsersContainer";
-import DialogsContainer from "./components/dialogs/DialogsContainer";
 import Login from "./components/login/LoginForm";
 import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {AppRootStateType, store} from "./components/redux/redux-store";
 import {setAuthThunkCreator} from "./components/redux/reducer/authPageReducer";
+import {Preloader} from "./components/common/preloader/Preloader";
+
+
+const ProfileContainer = React.lazy(() => import("./components/profile/ProfileContainer"));
+const DialogsContainer = React.lazy(() => import("./components/dialogs/DialogsContainer"));
 
 class App extends Component<any, AppRootStateType> {
 
@@ -28,8 +31,17 @@ class App extends Component<any, AppRootStateType> {
                 <Navbar/>
                 <div className={'app-wrapper-content'}>
                     <Switch>
-                        <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
-                        <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
+                        <Route path={'/profile/:userId?'} render={() => {
+                            return <React.Suspense fallback={ <Preloader/> }>
+                                <ProfileContainer/>
+                            </React.Suspense>
+                        }}/>
+
+                        <Route path={'/dialogs'} render={() => {
+                            return <React.Suspense fallback={ <Preloader/> }>
+                            <DialogsContainer/>
+                            </React.Suspense>
+                        }}/>
                         <Route path={'/users'} render={() => <UsersContainer/>}/>
                         <Route path={'/login'} render={() => <Login/>}/>
                         <Route path={'/news'} component={News}/>
@@ -57,3 +69,6 @@ const SamuraiTSApp = () => {
 }
 
 export default SamuraiTSApp
+
+
+

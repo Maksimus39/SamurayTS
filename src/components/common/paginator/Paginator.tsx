@@ -57,7 +57,6 @@ export const Paginator = ({
                             onClick={onPageChangeHandler}>{p}</span>
                     );
                 })}
-
             {portionCount > portionNumber && <button onClick={nextPortionNumberHandler}>NEXT</button>}
         </div>
     );
