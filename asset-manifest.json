@@ -1,14 +1,22 @@
 {
   "files": {
-    "main.css": "/SamurayTS/static/css/main.7e2d7436.css",
-    "main.js": "/SamurayTS/static/js/main.5f654922.js",
+    "main.css": "/SamurayTS/static/css/main.a34c1f27.css",
+    "main.js": "/SamurayTS/static/js/main.3d8a8d82.js",
+    "static/css/694.d14b16c2.chunk.css": "/SamurayTS/static/css/694.d14b16c2.chunk.css",
+    "static/js/694.9553003b.chunk.js": "/SamurayTS/static/js/694.9553003b.chunk.js",
+    "static/css/659.a8fc74e3.chunk.css": "/SamurayTS/static/css/659.a8fc74e3.chunk.css",
+    "static/js/659.a11261c3.chunk.js": "/SamurayTS/static/js/659.a11261c3.chunk.js",
     "static/media/motion-blur-2.svg": "/SamurayTS/static/media/motion-blur-2.0aa1f576c35317f4301ad547d016da31.svg",
     "index.html": "/SamurayTS/index.html",
-    "main.7e2d7436.css.map": "/SamurayTS/static/css/main.7e2d7436.css.map",
-    "main.5f654922.js.map": "/SamurayTS/static/js/main.5f654922.js.map"
+    "main.a34c1f27.css.map": "/SamurayTS/static/css/main.a34c1f27.css.map",
+    "main.3d8a8d82.js.map": "/SamurayTS/static/js/main.3d8a8d82.js.map",
+    "694.d14b16c2.chunk.css.map": "/SamurayTS/static/css/694.d14b16c2.chunk.css.map",
+    "694.9553003b.chunk.js.map": "/SamurayTS/static/js/694.9553003b.chunk.js.map",
+    "659.a8fc74e3.chunk.css.map": "/SamurayTS/static/css/659.a8fc74e3.chunk.css.map",
+    "659.a11261c3.chunk.js.map": "/SamurayTS/static/js/659.a11261c3.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7e2d7436.css",
-    "static/js/main.5f654922.js"
+    "static/css/main.a34c1f27.css",
+    "static/js/main.3d8a8d82.js"
   ]
 }
