@@ -1,4 +1,5 @@
 import axios from "axios";
+import {savePhoto} from "../redux/reducer/profilePageReducer";
 
 type GetUsersProps = {
     currentPage: number;
@@ -50,4 +51,15 @@ export const usersApi = {
         const response = await instance.delete(`auth/login`);
         return response.data;
     },
+    async savePhoto(photoFile: string) {
+        const formData = new FormData();
+        formData.append('image', photoFile);
+
+        const response = await instance.put(`profile/photo`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+        return response.data;
+    }
 }

@@ -19,7 +19,10 @@ export type DeletePostActionType = {
     type: 'SAMURAI-NETWORK/PROFILE/DELETE-POST'
     postId: number
 }
-
+export type SavePhotoSuccessActionType = {
+    type: 'SAMURAI-NETWORK/PROFILE/SAVE-PHOTOS'
+    photos: any
+}
 
 // Action creator
 export const addPost = (newPostText: string): AddPostActionType => {
@@ -46,12 +49,19 @@ export const deletePost = (postId: number): DeletePostActionType => {
         postId: postId
     } as const
 }
+export const savePhotoSuccess = (photos: string): SavePhotoSuccessActionType => {
+    return {
+        type: 'SAMURAI-NETWORK/PROFILE/SAVE-PHOTOS',
+        photos: photos
+    } as const
+}
 
 
 // Thunk creator type
 type ProfileThunkCreatorType = AddPostActionType
     | SetUserProfileActionType
     | SetStatusActionType
+    | SavePhotoSuccessActionType
 
 // Thunk creator
 export const profileThunkCreator = (userId: number) => async (dispatch: Dispatch<ProfileThunkCreatorType>) => {
@@ -69,15 +79,22 @@ export const updateStatus = (status: string) => async (dispatch: Dispatch<Profil
         dispatch(setStatus(status))
     }
 }
+export const savePhoto = (file: string) => async (dispatch: Dispatch<ProfileThunkCreatorType>) => {
+    const response = await usersApi.savePhoto(file)
+    if (response.data.resultCode === 0) {
+        dispatch(savePhotoSuccess(response.data.data.photos))
+    }
+}
 
 
-let initialState: ProfilePageType = {
+const initialState: ProfilePageType = {
     posts: [
         {id: new Date().getTime(), message: 'Hi how are you', likesCount: 15},
         {id: new Date().getTime(), message: 'it`s my first post', likesCount: 20},
     ],
     profile: null,
-    status: ''
+    status: '',
+    photos: ''
 }
 
 export const profilePageReducer = (state: ProfilePageType = initialState, action: DispatchType): ProfilePageType => {
@@ -103,6 +120,11 @@ export const profilePageReducer = (state: ProfilePageType = initialState, action
         case "SAMURAI-NETWORK/PROFILE/DELETE-POST":
             return {
                 ...state, posts: state.posts.filter(post => post.id !== action.postId),
+            }
+        case "SAMURAI-NETWORK/PROFILE/SAVE-PHOTOS":
+            debugger
+            return {
+                ...state,profile: state.profile, photos: action.photos
             }
         default:
             return state

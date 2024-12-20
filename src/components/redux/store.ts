@@ -1,6 +1,6 @@
 import {
     AddPostActionType,
-    DeletePostActionType,
+    DeletePostActionType, SavePhotoSuccessActionType,
     SetStatusActionType,
     SetUserProfileActionType
 } from "./reducer/profilePageReducer";
@@ -21,6 +21,7 @@ export type ProfilePageType = {
     posts: PostDataType[]
     profile: null
     status: string
+    photos: string
 }
 export type DialogsPageType = {
     dialogs: DialogDataType[]
@@ -93,6 +94,7 @@ export type DispatchType =
     | ToggleIsFollowingProgressActionType
     | SetStatusActionType
     | DeletePostActionType
+    | SavePhotoSuccessActionType
 
 
 

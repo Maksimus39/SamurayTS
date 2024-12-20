@@ -2,6 +2,7 @@ import React, {FC} from 'react';
 import {WrappedFieldInputProps, WrappedFieldMetaProps} from "redux-form/lib/Field";
 import classes from './FormsControls.module.css';
 import {Field} from "redux-form";
+import {TextareaPropsType} from "./Textarea";
 
 
 type FormControlPropsType = {
@@ -10,7 +11,7 @@ type FormControlPropsType = {
     children: React.ReactNode;
 };
 
-const FormControl: React.FC<FormControlPropsType> = ({input, meta: {touched, error}, children}) => {
+export const FormControl: React.FC<FormControlPropsType> = ({input, meta: {touched, error}, children}) => {
     const hasError = touched && error;
 
     return (
@@ -26,18 +27,6 @@ const FormControl: React.FC<FormControlPropsType> = ({input, meta: {touched, err
 };
 
 
-type TextareaPropsType = {
-    input: WrappedFieldInputProps;
-    meta: WrappedFieldMetaProps;
-    [key: string]: any;
-};
-export const Textarea: React.FC<TextareaPropsType> = (props) => {
-    return (
-        <FormControl {...props}>
-            <textarea {...props.input} {...props} />
-        </FormControl>
-    );
-};
 export const Input: React.FC<TextareaPropsType> = (props) => {
     return (
         <FormControl {...props}>

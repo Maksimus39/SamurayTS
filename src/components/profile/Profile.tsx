@@ -1,6 +1,6 @@
 import React from "react";
-import { ProfileInfo } from "./profileInfo/ProfileInfo";
-import { MyPostsContainer } from "./myPosts/MyPostsContainer";
+import {ProfileInfo} from "./profileInfo/ProfileInfo";
+import {MyPostsContainer} from "./myPosts/MyPostsContainer";
 
 export type ContactsType = {
     facebook: string;
@@ -31,14 +31,22 @@ type ProfileProps = {
     profile: ProfileType;
     status: string;
     updateStatus: (status: string) => void;
+    isOwner: boolean
+    savePhoto: string
 };
 
-export const Profile = (props: ProfileProps) => {
+export const Profile = ({profile, status, updateStatus, isOwner, savePhoto}: ProfileProps) => {
 
     return (
         <div>
-            <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus} />
-            <MyPostsContainer />
+            <ProfileInfo profile={profile}
+                         status={status}
+                         updateStatus={updateStatus}
+                         isOwner={isOwner}
+                         savePhoto={savePhoto}
+            />
+
+            <MyPostsContainer/>
         </div>
     );
 };

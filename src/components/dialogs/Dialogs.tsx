@@ -5,7 +5,8 @@ import {Message} from "./message/Message";
 import {DialogsPropsType} from "./DialogsContainer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../utils/validators/validators";
-import {Textarea} from "../common/formsControls/FormsControls";
+
+import {Textarea} from "../common/formsControls/Textarea";
 
 
 export const Dialogs = (props: DialogsPropsType) => {

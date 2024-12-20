@@ -8,7 +8,8 @@ let state: ProfilePageType = {
         {id: new Date().getTime(), message: 'it`s my first post', likesCount: 20},
     ],
     profile: null,
-    status: ''
+    status: '',
+    photos:''
 }
 
 
